@@ -8,3 +8,5 @@ target
 /RUNNING_PID
 .sbtserver
 play-scala
+bin
+libexec
