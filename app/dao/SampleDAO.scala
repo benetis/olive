@@ -13,6 +13,13 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   private val samples = TableQuery[SamplesTable]
 
   private class SamplesTable(tag: Tag) extends Table[Sample](tag, "SAMPLE") {
-    override def * : ProvenShape[Sample] = ???
+    def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
+    def temperature = column[Float]("TEMPERATURE")
+    def humidity = column[Float]("HUMIDITY")
+    def windDirection = column[String]("WIND_DIRECTION")
+    def windSpeed = column[Float]("WIND_SPEED")
+    def rainLevel = column[Float]("RAIN_LEVEL")
+
+    def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel) <> (Sample.tupled, Sample.unapply _)
   }
 }
