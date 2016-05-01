@@ -18,6 +18,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0"
 )
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-
-
-fork in run := false
