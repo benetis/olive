@@ -3,9 +3,11 @@ package controllers
 import javax.inject._
 
 import dao.SampleDAO
+import models.Sample
 import play.api._
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
 import scala.concurrent.duration._
 
 /**
@@ -16,7 +18,8 @@ import scala.concurrent.duration._
 class Application @Inject() (sampleDao: SampleDAO) extends Controller {
 
   def index = Action.async {
-    sampleDao.all().map(_ => Ok(views.html.index()))
+    sampleDao.all().map {
+      sample: Seq[Sample] => Ok(views.html.samples(sample)) }
   }
 
 }
