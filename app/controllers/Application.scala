@@ -2,24 +2,17 @@ package controllers
 
 import javax.inject._
 
-import dao.SampleDAO
-import models.Sample
-import play.api._
 import play.api.mvc._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-
-import scala.concurrent.duration._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class Application @Inject() (sampleDao: SampleDAO) extends Controller {
+class Application extends Controller {
 
-  def index = Action.async {
-    sampleDao.all().map {
-      sample: Seq[Sample] => Ok(views.html.samples(sample)) }
+  def index = Action {
+    Ok(views.html.index())
   }
 
 }
