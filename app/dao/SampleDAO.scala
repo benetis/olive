@@ -16,6 +16,8 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
 
   def all(): Future[Seq[Sample]] = db.run(Samples.result)
 
+  def insert(sample: Sample): Future[Unit] = db.run(Samples += sample).map { _ => () }
+
   private class SamplesTable(tag: Tag) extends Table[Sample](tag, "SAMPLE") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
     def temperature = column[Float]("TEMPERATURE")
@@ -24,6 +26,6 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     def windSpeed = column[Float]("WIND_SPEED")
     def rainLevel = column[Float]("RAIN_LEVEL")
 
-    def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel) <> (Sample.tupled, Sample.unapply _)
+    def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel) <> ((Sample.apply _).tupled, Sample.unapply _)
   }
 }
