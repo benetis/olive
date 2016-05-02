@@ -29,7 +29,7 @@ class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
       }
     } match {
       case Some(a) => a
-      case None => Future.successful(BadRequest("db error"))
+      case None => Future.successful(BadRequest("json error"))
     }
   }
 //  def saveSamples = Action(BodyParsers.parse.json) { request =>
