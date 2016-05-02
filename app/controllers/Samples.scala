@@ -7,6 +7,9 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 import models.Sample
 import play.api._
+import play.api.libs.json._
+
+import scala.concurrent.Future
 import scala.concurrent.duration._
 
 
@@ -18,7 +21,18 @@ class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
       sample: Seq[Sample] => Ok(views.html.samples(sample)) }
   }
 
-  def insertSample = TODO
+  //TODO: can use some imrpovements for code
+  def insertSample() = Action.async { implicit request =>
+    request.body.asJson.map { json =>
+      json.validate[Sample] match {
+        case JsSuccess(s, _) => sampleDao.insert(s).map(_ => Ok(Json.obj("status" -> "OK")))
+        case JsError(_) => Future.successful(BadRequest("error"))
+      }
+    } match {
+      case Some(a) => a
+      case None => Future.successful(BadRequest("db error"))
+    }
+  }
 //  def saveSamples = Action(BodyParsers.parse.json) { request =>
 //    val b = request.body.validate[Book]
 //    b.fold(
