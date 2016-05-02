@@ -1,13 +1,16 @@
 package dao
 
+import java.sql.Timestamp
 import javax.inject.Inject
 
 import models.Sample
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape
+
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import slick.profile.SqlProfile.ColumnOption.SqlType
 
 class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] {
   import driver.api._
@@ -25,7 +28,8 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     def windDirection = column[String]("WIND_DIRECTION")
     def windSpeed = column[Float]("WIND_SPEED")
     def rainLevel = column[Float]("RAIN_LEVEL")
+    def clocked = column[Timestamp]("CLOCKED", SqlType("timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"))
 
-    def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel) <> ((Sample.apply _).tupled, Sample.unapply _)
+    def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel, clocked) <> ((Sample.apply _).tupled, Sample.unapply _)
   }
 }
