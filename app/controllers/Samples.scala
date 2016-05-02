@@ -25,7 +25,7 @@ class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
   def insertSample() = Action.async { implicit request =>
     request.body.asJson.map { json => json.validate[Sample] match {
         case JsSuccess(s, _) => sampleDao.insert(s).map(_ => Ok(Json.obj("status" -> "OK")))
-        case JsError(_) => Future.successful(BadRequest("error"))
+        case err@JsError(_) => Future.successful(BadRequest(err.toString))
       }
     } match {
       case Some(a) => a
