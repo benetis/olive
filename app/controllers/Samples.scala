@@ -32,17 +32,5 @@ class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
       case None => Future.successful(BadRequest("json error"))
     }
   }
-//  def saveSamples = Action(BodyParsers.parse.json) { request =>
-//    val b = request.body.validate[Book]
-//    b.fold(
-//      errors => {
-//        BadRequest(Json.obj("status" -> "OK", "message" -> JsError.toFlatJson(errors)))
-//      },
-//      book => {
-//        addBook(book)
-//        Ok(Json.obj("status" -> "OK"))
-//      }
-//    )
-//  }
 
 }
