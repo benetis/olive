@@ -29,7 +29,6 @@ POST	/change-password				controllers.Auth.handleChangePassword
 GET		/denied									controllers.Auth.accessDenied
 
 
-GET		/												controllers.Application.index
 GET		/serviceA								controllers.Application.serviceA
 GET		/serviceA_or_ServiceB		controllers.Application.serviceAorServiceB
 GET		/serviceA_and_ServiceB	controllers.Application.serviceAandServiceB
