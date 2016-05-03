@@ -39,11 +39,11 @@ GET		/lang/$lang<(en|es)>		controllers.Application.selectLang(lang: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET		/public/*file						controllers.MyAssets.public(path="/public", file: Asset)
-GET		/lib/*file							controllers.MyAssets.lib(path="/public/lib", file: Asset)
-GET		/css/*file							controllers.MyAssets.css(path="/public/stylesheets", file: Asset)
-GET		/js/*file								controllers.MyAssets.js(path="/public/javascripts", file: Asset)
-GET		/img/*file							controllers.MyAssets.img(path="/public/images", file: Asset)
+GET		/public/*file					controllers.MyAssets.public(path="/public", file: Asset)
+GET		/lib/*file						controllers.MyAssets.lib(path="/public/lib", file: Asset)
+GET		/css/*file						controllers.MyAssets.css(path="/public/stylesheets", file: Asset)
+GET		/js/*file						controllers.MyAssets.js(path="/public/javascripts", file: Asset)
+GET		/img/*file						controllers.MyAssets.img(path="/public/images", file: Asset)
 GET		/common/css/*file				controllers.MyAssets.commonCss(path="/public/lib/common/stylesheets", file: Asset)
 GET		/common/js/*file				controllers.MyAssets.commonJs(path="/public/lib/common/javascripts", file: Asset)
 GET		/common/img/*file				controllers.MyAssets.commonImg(path="/public/lib/common/images", file: Asset)
