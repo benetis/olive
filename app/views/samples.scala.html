@@ -1,9 +1,0 @@
-@import models.Sample
-@(samples: Seq[Sample])
-
-@main("Samples") {
-    <h2>Samples</h2>
-    @for(sample <- samples) {
-        @sample.temperature
-    }
-}

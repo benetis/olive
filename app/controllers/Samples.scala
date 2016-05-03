@@ -18,7 +18,7 @@ class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
 
   def index = Action.async {
     sampleDao.all().map {
-      sample: Seq[Sample] => Ok(views.html.samples(sample)) }
+      sample: Seq[Sample] => Ok(views.html.samples()) }
   }
 
   //TODO: can use some imrpovements for code
