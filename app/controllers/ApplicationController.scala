@@ -6,9 +6,11 @@ import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import forms.{SignInForm, SignUpForm}
 import models.User
+import models.daos.{CreateSchema, DBTableDefinitions}
 import play.api.i18n.MessagesApi
-import models.daos.DBTableDefinitions
-
+import slick.dbio.Effect.Schema
+import slick.dbio.NoStream
+import slick.profile.FixedSqlAction
 
 import scala.concurrent.Future
 

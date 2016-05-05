@@ -5,9 +5,8 @@ import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 
 trait DBTableDefinitions {
-  
-  protected val driver: JdbcProfile
-  import driver.api._
+  val profile = slick.driver.MySQLDriver
+  import profile.api._
 
   case class DBUser (
     userID: String,
@@ -138,17 +137,4 @@ trait DBTableDefinitions {
   // queries used in multiple places
   def loginInfoQuery(loginInfo: LoginInfo) = 
     slickLoginInfos.filter(dbLoginInfo => dbLoginInfo.providerID === loginInfo.providerID && dbLoginInfo.providerKey === loginInfo.providerKey)
-
-
-  lazy val allTables = Array(
-    TableQuery[Users].schema,
-    TableQuery[LoginInfos].schema,
-    TableQuery[UserLoginInfos].schema,
-    TableQuery[PasswordInfos].schema
-  ).reduceLeft(_ ++ _)
-
-  def create = {
-    allTables.create
-  }
-
 }
