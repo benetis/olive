@@ -26,6 +26,5 @@ class CreateSchema @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
     val coffees = TableQuery[Users]
     coffees.schema.create
-    Console.println("lols")
   }
 }
