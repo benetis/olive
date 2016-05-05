@@ -7,6 +7,8 @@ import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import forms.{SignInForm, SignUpForm}
 import models.User
 import play.api.i18n.MessagesApi
+import models.daos.DBTableDefinitions
+
 
 import scala.concurrent.Future
 

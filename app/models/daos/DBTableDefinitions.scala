@@ -130,12 +130,25 @@ trait DBTableDefinitions {
   val slickLoginInfos = TableQuery[LoginInfos]
   val slickUserLoginInfos = TableQuery[UserLoginInfos]
   val slickPasswordInfos = TableQuery[PasswordInfos]
-  val slickOAuth1Infos = TableQuery[OAuth1Infos]
-  val slickOAuth2Infos = TableQuery[OAuth2Infos]
-  val slickOpenIDInfos = TableQuery[OpenIDInfos]
-  val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
+//  val slickOAuth1Infos = TableQuery[OAuth1Infos]
+//  val slickOAuth2Infos = TableQuery[OAuth2Infos]
+//  val slickOpenIDInfos = TableQuery[OpenIDInfos]
+//  val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
   
   // queries used in multiple places
   def loginInfoQuery(loginInfo: LoginInfo) = 
     slickLoginInfos.filter(dbLoginInfo => dbLoginInfo.providerID === loginInfo.providerID && dbLoginInfo.providerKey === loginInfo.providerKey)
+
+
+  lazy val allTables = Array(
+    TableQuery[Users].schema,
+    TableQuery[LoginInfos].schema,
+    TableQuery[UserLoginInfos].schema,
+    TableQuery[PasswordInfos].schema
+  ).reduceLeft(_ ++ _)
+
+  def create = {
+    allTables.create
+  }
+
 }
