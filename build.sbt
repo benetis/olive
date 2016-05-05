@@ -19,6 +19,8 @@ libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "3.0.4",
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",	// Add bootstrap3 helpers and field constructors (http://play-bootstrap3.herokuapp.com/)
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
+  "net.codingwell" %% "scala-guice" % "4.0.0",
+  "net.ceedubs" %% "ficus" % "1.1.2",
   //Webjars
   "org.webjars" %% "webjars-play" % "2.5.0",
   "org.webjars" % "requirejs" % "2.2.0"

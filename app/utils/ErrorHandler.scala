@@ -1,47 +1,52 @@
 package utils
 
+import javax.inject.Inject
+
+import com.mohiva.play.silhouette.api.SecuredErrorHandler
 import controllers.routes
 import play.api.http.DefaultHttpErrorHandler
-import com.mohiva.play.silhouette.api.SecuredErrorHandler
-import play.api._
-import play.api.mvc._
+import play.api.i18n.Messages
 import play.api.mvc.Results._
-import play.api.i18n.{ I18nSupport, MessagesApi, Messages }
+import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
+import play.api.{Configuration, OptionalSourceMapper}
+
 import scala.concurrent.Future
-import javax.inject._
 
+/**
+ * A secured error handler.
+ */
 class ErrorHandler @Inject() (
-    env: Environment,
-    config: Configuration,
-    sourceMapper: OptionalSourceMapper,
-    router: Provider[Router],
-    val messagesApi: MessagesApi) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) with SecuredErrorHandler with I18nSupport {
+  env: play.api.Environment,
+  config: Configuration,
+  sourceMapper: OptionalSourceMapper,
+  router: javax.inject.Provider[Router])
+  extends DefaultHttpErrorHandler(env, config, sourceMapper, router)
+  with SecuredErrorHandler {
 
-  // 401 - Unauthorized
-  override def onNotAuthenticated(request: RequestHeader, messages: Messages): Option[Future[Result]] = Some {
-    Future.successful {
-      Redirect(routes.Auth.signIn)
-    }
+  /**
+   * Called when a user is not authenticated.
+   *
+   * As defined by RFC 2616, the status code of the response should be 401 Unauthorized.
+   *
+   * @param request The request header.
+   * @param messages The messages for the current language.
+   * @return The result to send to the client.
+   */
+  override def onNotAuthenticated(request: RequestHeader, messages: Messages): Option[Future[Result]] = {
+    Some(Future.successful(Redirect(routes.ApplicationController.signIn())))
   }
 
-  // 403 - Forbidden
-  override def onNotAuthorized(request: RequestHeader, messages: Messages): Option[Future[Result]] = Some {
-    Future.successful {
-      Redirect(routes.Auth.accessDenied)
-    }
-  }
-
-  // 404 - page not found error
-  override def onNotFound(request: RequestHeader, message: String): Future[Result] = Future.successful {
-    NotFound(env.mode match {
-      case Mode.Prod => views.html.errors.notFound(request)(request2Messages(request))
-      case _ => views.html.defaultpages.devNotFound(request.method, request.uri, Some(router.get))
-    })
-  }
-
-  // 500 - internal server error
-  override def onProdServerError(request: RequestHeader, exception: UsefulException) = Future.successful {
-    InternalServerError(views.html.errors.error(request, exception)(request2Messages(request)))
+  /**
+   * Called when a user is authenticated but not authorized.
+   *
+   * As defined by RFC 2616, the status code of the response should be 403 Forbidden.
+   *
+   * @param request The request header.
+   * @param messages The messages for the current language.
+   * @return The result to send to the client.
+   */
+  override def onNotAuthorized(request: RequestHeader, messages: Messages): Option[Future[Result]] = {
+    Some(Future.successful(Redirect(routes.ApplicationController.signIn()).flashing("error" -> Messages("access.denied")(messages))))
   }
 }
