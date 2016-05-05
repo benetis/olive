@@ -4,7 +4,6 @@ import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
-import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import forms.{SignInForm, SignUpForm}
 import models.User
 import play.api.i18n.MessagesApi
@@ -16,12 +15,11 @@ import scala.concurrent.Future
  *
  * @param messagesApi The Play messages API.
  * @param env The Silhouette environment.
- * @param socialProviderRegistry The social provider registry.
  */
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
-  val env: Environment[User, CookieAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry)
+  val env: Environment[User, CookieAuthenticator]
+  )
   extends Silhouette[User, CookieAuthenticator] {
 
   /**
@@ -41,7 +39,7 @@ class ApplicationController @Inject() (
   def signIn = UserAwareAction.async { implicit request =>
     request.identity match {
       case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
-      case None => Future.successful(Ok(views.html.signIn(SignInForm.form, socialProviderRegistry)))
+      case None => Future.successful(Ok(views.html.signIn(SignInForm.form)))
     }
   }
 

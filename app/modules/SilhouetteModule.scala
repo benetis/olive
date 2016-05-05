@@ -41,9 +41,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     bind[UserService].to[UserServiceImpl]
     bind[UserDAO].to[UserDAOImpl]
     bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
-    bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]
-    bind[DelegableAuthInfoDAO[OAuth2Info]].to[OAuth2InfoDAO]
-    bind[DelegableAuthInfoDAO[OpenIDInfo]].to[OpenIDInfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
     bind[PasswordHasher].toInstance(new BCryptPasswordHasher)
@@ -83,38 +80,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     )
   }
 
-  /**
-    * Provides the social provider registry.
-    *
-    * @param facebookProvider The Facebook provider implementation.
-    * @param googleProvider The Google provider implementation.
-    * @param vkProvider The VK provider implementation.
-    * @param clefProvider The Clef provider implementation.
-    * @param twitterProvider The Twitter provider implementation.
-    * @param xingProvider The Xing provider implementation.
-    * @param yahooProvider The Yahoo provider implementation.
-    * @return The Silhouette environment.
-    */
-  @Provides
-  def provideSocialProviderRegistry(
-                                     facebookProvider: FacebookProvider,
-                                     googleProvider: GoogleProvider,
-                                     vkProvider: VKProvider,
-                                     clefProvider: ClefProvider,
-                                     twitterProvider: TwitterProvider,
-                                     xingProvider: XingProvider,
-                                     yahooProvider: YahooProvider): SocialProviderRegistry = {
-
-    SocialProviderRegistry(Seq(
-      googleProvider,
-      facebookProvider,
-      twitterProvider,
-      vkProvider,
-      xingProvider,
-      yahooProvider,
-      clefProvider
-    ))
-  }
 
   /**
     * Provides the authenticator service.
@@ -140,19 +105,13 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     * Provides the auth info repository.
     *
     * @param passwordInfoDAO The implementation of the delegable password auth info DAO.
-    * @param oauth1InfoDAO The implementation of the delegable OAuth1 auth info DAO.
-    * @param oauth2InfoDAO The implementation of the delegable OAuth2 auth info DAO.
-    * @param openIDInfoDAO The implementation of the delegable OpenID auth info DAO.
     * @return The auth info repository instance.
     */
   @Provides
   def provideAuthInfoRepository(
-                                 passwordInfoDAO: DelegableAuthInfoDAO[PasswordInfo],
-                                 oauth1InfoDAO: DelegableAuthInfoDAO[OAuth1Info],
-                                 oauth2InfoDAO: DelegableAuthInfoDAO[OAuth2Info],
-                                 openIDInfoDAO: DelegableAuthInfoDAO[OpenIDInfo]): AuthInfoRepository = {
+                                 passwordInfoDAO: DelegableAuthInfoDAO[PasswordInfo]): AuthInfoRepository = {
 
-    new DelegableAuthInfoRepository(passwordInfoDAO, oauth1InfoDAO, oauth2InfoDAO, openIDInfoDAO)
+    new DelegableAuthInfoRepository(passwordInfoDAO)
   }
 
   /**
@@ -238,23 +197,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
                              configuration: Configuration): GoogleProvider = {
 
     new GoogleProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.google"))
-  }
-
-  /**
-    * Provides the VK provider.
-    *
-    * @param httpLayer The HTTP layer implementation.
-    * @param stateProvider The OAuth2 state provider implementation.
-    * @param configuration The Play configuration.
-    * @return The VK provider.
-    */
-  @Provides
-  def provideVKProvider(
-                         httpLayer: HTTPLayer,
-                         stateProvider: OAuth2StateProvider,
-                         configuration: Configuration): VKProvider = {
-
-    new VKProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.vk"))
   }
 
   /**
