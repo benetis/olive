@@ -39,6 +39,7 @@ class ApplicationController @Inject() (
    * Handles the Sign In action.
    *
    * @return The result to display.
+    *
    */
   def signIn = UserAwareAction.async { implicit request =>
     request.identity match {
