@@ -1,0 +1,24 @@
+package models.daos
+
+import java.sql.Timestamp
+import javax.inject.Inject
+
+import models.{Sample, WeatherStation}
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import slick.driver.JdbcProfile
+import slick.profile.SqlProfile.ColumnOption.SqlType
+
+import scala.concurrent.Future
+
+class WeatherStationDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] with DAOSlick {
+  import driver.api._
+
+  private val stations = TableQuery[WeatherStationTable]
+
+  def all(): Future[Seq[WeatherStation]] = db.run(stations.result)
+
+  def insert(station: WeatherStation): Future[Unit] = db.run(stations += station).map { _ => () }
+
+
+}

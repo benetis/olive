@@ -5,7 +5,13 @@ import java.text.SimpleDateFormat
 import play.api.libs.json._
 import play.api.libs.json.Json
 
-case class Sample (id: Option[Long], temperature: Float, humidity: Float, windDirection: String, windSpeed: Float, rainLevel: Float, clocked: Timestamp){
+case class Sample (id: Option[Long],
+                   temperature: Float,
+                   humidity: Float,
+                   windDirection: String,
+                   windSpeed: Float,
+                   rainLevel: Float,
+                   clocked: Timestamp){
 }
 
 object Sample {
