@@ -11,5 +11,4 @@ case class WeatherStation (id: Option[Long],
                            name: String,
                            coordinatesX: BigDecimal,
                            coordinatesY: BigDecimal
-                          ){
-}
+                          )

@@ -1,9 +1,12 @@
 package models.daos
 
+import java.util.UUID
+
 import com.mohiva.play.silhouette.api.LoginInfo
 import models.WeatherStation
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
+import slick.util.TupleMethods._
 
 trait DBTableDefinitions {
   
@@ -126,14 +129,21 @@ trait DBTableDefinitions {
     def * = (id, key, value) <> (DBOpenIDAttribute.tupled, DBOpenIDAttribute.unapply)
   }
 
-  class WeatherStationTable(tag: Tag) extends Table[WeatherStation](tag, "weather_station") {
+  case class DBWeatherStation (id: Option[Long],
+                             key: String,
+                             name: String,
+                             coordinatesX: BigDecimal,
+                             coordinatesY: BigDecimal
+                            )
+
+  class WeatherStationTable(tag: Tag) extends Table[DBWeatherStation](tag, "weather_station") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def key = column[String]("key")
     def name = column[String]("name")
     def coordinatesX = column[BigDecimal]("coordinatesX")
     def coordinatesY = column[BigDecimal]("coordinatesY")
 
-    def * = (id.?, key, name, coordinatesX, coordinatesY) <> ((WeatherStation.apply _).tupled, WeatherStation.unapply _)
+    def * = (id.?, key, name, coordinatesX, coordinatesY) <> ((DBWeatherStation.apply _).tupled, DBWeatherStation.unapply _)
   }
 
   // table query definitions

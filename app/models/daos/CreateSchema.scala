@@ -7,7 +7,6 @@ import models.WeatherStation
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
-import models.daos.WeatherStationDAO
 import scala.concurrent.Await
 //TODO needs injection
 class CreateSchema @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) extends DBTableDefinitions {
