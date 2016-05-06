@@ -5,9 +5,9 @@ access.denied = Access denied!
 user.exists = There already exists a user with this email!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
-home.title = Silhouette - Home
-sign.up.title = Silhouette - Sign Up
-sign.in.title = Silhouette - Sign In
+home.title = Olive - Home
+sign.up.title = Olive - Sign Up
+sign.in.title = Olive - Sign In
 
 toggle.navigation = Toggle navigation
 welcome.signed.in = Welcome, you are now signed in!
