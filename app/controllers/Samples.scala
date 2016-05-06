@@ -2,10 +2,10 @@ package controllers
 
 import javax.inject._
 
-import dao.SampleDAO
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 import models.Sample
+import models.daos.SampleDAO
 import play.api._
 import play.api.libs.json._
 

@@ -1,16 +1,15 @@
-package dao
+package models.daos
 
 import java.sql.Timestamp
 import javax.inject.Inject
 
 import models.Sample
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
-import slick.lifted.ProvenShape
+import slick.profile.SqlProfile.ColumnOption.SqlType
 
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import slick.profile.SqlProfile.ColumnOption.SqlType
 
 class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] {
   import driver.api._
