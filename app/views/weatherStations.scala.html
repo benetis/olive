@@ -1,0 +1,20 @@
+@(weatherStation: models.WeatherStation)(implicit messages: Messages)
+
+@main(Messages("home.title"), Some(weatherStation)) {
+    <div class="weatherStation col-md-6 col-md-offset-3">
+        <div class="row">
+            <hr class="col-md-12" />
+            <h4 class="col-md-8">@Messages("welcome.signed.in")</h4>
+            <div class="col-md-4 text-right">
+            </div>
+            <hr class="col-md-12" />
+        </div>
+        <div class="row data">
+            <div class="col-md-12">
+                <div class="row">
+                    <p class="col-md-6"><strong>@Messages("Weather station"):</strong></p><p class="col-md-6">@weatherStation.name.getOrElse("None")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
