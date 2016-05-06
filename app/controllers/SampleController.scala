@@ -14,7 +14,7 @@ import scala.concurrent.duration._
 
 
 @Singleton
-class Samples @Inject()(sampleDao: SampleDAO) extends Controller {
+class SampleController @Inject()(sampleDao: SampleDAO) extends Controller {
 
   def index = Action.async {
     sampleDao.all().map {

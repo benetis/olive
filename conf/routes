@@ -2,10 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /samples                     controllers.Samples.index
-POST    /samples                     controllers.Samples.insertSample
-
 GET     /                            controllers.ApplicationController.index
 GET     /signOut                     controllers.ApplicationController.signOut
 GET     /authenticate/:provider      controllers.SocialAuthController.authenticate(provider)
@@ -15,17 +11,19 @@ POST    /signUp                      controllers.SignUpController.submit
 GET     /signIn                      controllers.SignInController.view
 POST    /signIn                      controllers.SignInController.submit
 
+GET     /samples                     controllers.SampleController.index
+POST    /samples                     controllers.SampleController.insertSample
 
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /assets/*file                    controllers.Assets.at(path="/public", file)
 GET     /webjars/*file                   controllers.WebJarAssets.at(file)
 
-GET		/public/*file					controllers.MyAssets.public(path="/public", file: Asset)
-GET		/lib/*file						controllers.MyAssets.lib(path="/public/lib", file: Asset)
-GET		/css/*file						controllers.MyAssets.css(path="/public/stylesheets", file: Asset)
-GET		/js/*file						controllers.MyAssets.js(path="/public/javascripts", file: Asset)
-GET		/img/*file						controllers.MyAssets.img(path="/public/images", file: Asset)
-GET		/common/css/*file				controllers.MyAssets.commonCss(path="/public/lib/common/stylesheets", file: Asset)
-GET		/common/js/*file				controllers.MyAssets.commonJs(path="/public/lib/common/javascripts", file: Asset)
-GET		/common/img/*file				controllers.MyAssets.commonImg(path="/public/lib/common/images", file: Asset)
+GET		/public/*file					controllers.AssetsController.public(path="/public", file: Asset)
+GET		/lib/*file						controllers.AssetsController.lib(path="/public/lib", file: Asset)
+GET		/css/*file						controllers.AssetsController.css(path="/public/stylesheets", file: Asset)
+GET		/js/*file						controllers.AssetsController.js(path="/public/javascripts", file: Asset)
+GET		/img/*file						controllers.AssetsController.img(path="/public/images", file: Asset)
+GET		/common/css/*file				controllers.AssetsController.commonCss(path="/public/lib/common/stylesheets", file: Asset)
+GET		/common/js/*file				controllers.AssetsController.commonJs(path="/public/lib/common/javascripts", file: Asset)
+GET		/common/img/*file				controllers.AssetsController.commonImg(path="/public/lib/common/images", file: Asset)
