@@ -12,5 +12,4 @@ define(["jquery", "bootstrap"], function($, bootstrap) {
 });
 
 (function() {
-    console.log("wrol");
 })();
