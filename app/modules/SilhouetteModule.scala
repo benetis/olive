@@ -7,7 +7,6 @@ import com.mohiva.play.silhouette.api.services._
 import com.mohiva.play.silhouette.api.util._
 import com.mohiva.play.silhouette.api.{Environment, EventBus, Silhouette, SilhouetteProvider}
 import com.mohiva.play.silhouette.impl.authenticators._
-import com.mohiva.play.silhouette.impl.daos.DelegableAuthInfoDAO
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.providers.oauth1._
 import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{CookieSecretProvider, CookieSecretSettings}
@@ -46,7 +45,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     bind[SecuredErrorHandler].to[CustomSecuredErrorHandler]
     bind[UserService].to[UserServiceImpl]
     bind[UserDAO].to[UserDAOImpl]
-    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
+//    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
     bind[PasswordHasher].toInstance(new BCryptPasswordHasher)
