@@ -1,5 +1,4 @@
 package modules
-
 import com.google.inject.{AbstractModule, Provides}
 import com.mohiva.play.silhouette.api.actions.{SecuredErrorHandler, UnsecuredErrorHandler}
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
@@ -19,6 +18,8 @@ import com.mohiva.play.silhouette.impl.services._
 import com.mohiva.play.silhouette.impl.util._
 import com.mohiva.play.silhouette.password.BCryptPasswordHasher
 import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
+import com.mohiva.play.silhouette.persistence.repositories.DelegableAuthInfoRepository
+
 import models.daos.{PasswordInfoDAO, UserDAO, UserDAOImpl}
 import models.services.{UserService, UserServiceImpl}
 import net.ceedubs.ficus.Ficus._
@@ -43,9 +44,9 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     bind[Silhouette[DefaultEnv]].to[SilhouetteProvider[DefaultEnv]]
     bind[UnsecuredErrorHandler].to[CustomUnsecuredErrorHandler]
     bind[SecuredErrorHandler].to[CustomSecuredErrorHandler]
+    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
     bind[UserService].to[UserServiceImpl]
     bind[UserDAO].to[UserDAOImpl]
-//    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
     bind[PasswordHasher].toInstance(new BCryptPasswordHasher)
@@ -308,4 +309,12 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     val settings = configuration.underlying.as[OpenIDSettings]("silhouette.yahoo")
     new YahooProvider(httpLayer, new PlayOpenIDService(client, settings), settings)
   }
+
+  @Provides
+  def provideAuthInfoRepository(
+                                 passwordInfoDAO: DelegableAuthInfoDAO[PasswordInfo]): AuthInfoRepository = {
+
+    new DelegableAuthInfoRepository(passwordInfoDAO)
+  }
+
 }
