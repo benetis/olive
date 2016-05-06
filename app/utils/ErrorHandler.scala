@@ -2,10 +2,10 @@ package utils
 
 import javax.inject.Inject
 
-import com.mohiva.play.silhouette.api.SecuredErrorHandler
+import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import controllers.routes
 import play.api.http.DefaultHttpErrorHandler
-import play.api.i18n.Messages
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
@@ -22,7 +22,7 @@ class ErrorHandler @Inject() (
   sourceMapper: OptionalSourceMapper,
   router: javax.inject.Provider[Router])
   extends DefaultHttpErrorHandler(env, config, sourceMapper, router)
-  with SecuredErrorHandler {
+  with I18nSupport {
 
   /**
    * Called when a user is not authenticated.
@@ -30,11 +30,10 @@ class ErrorHandler @Inject() (
    * As defined by RFC 2616, the status code of the response should be 401 Unauthorized.
    *
    * @param request The request header.
-   * @param messages The messages for the current language.
    * @return The result to send to the client.
    */
-  override def onNotAuthenticated(request: RequestHeader, messages: Messages): Option[Future[Result]] = {
-    Some(Future.successful(Redirect(routes.ApplicationController.signIn())))
+  def onNotAuthenticated(request: RequestHeader): Option[Future[Result]] = {
+    Some(Future.successful(Redirect(routes.SignInController.view())))
   }
 
   /**
@@ -43,10 +42,11 @@ class ErrorHandler @Inject() (
    * As defined by RFC 2616, the status code of the response should be 403 Forbidden.
    *
    * @param request The request header.
-   * @param messages The messages for the current language.
    * @return The result to send to the client.
    */
-  override def onNotAuthorized(request: RequestHeader, messages: Messages): Option[Future[Result]] = {
-    Some(Future.successful(Redirect(routes.ApplicationController.signIn()).flashing("error" -> Messages("access.denied")(messages))))
+  def onNotAuthorized(request: RequestHeader): Option[Future[Result]] = {
+    Some(Future.successful(Redirect(routes.SignInController.view()).flashing("error" -> Messages("access.denied"))))
   }
+
+  override def messagesApi: MessagesApi = ???
 }

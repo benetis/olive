@@ -6,6 +6,7 @@ import play.api.http.HttpFilters
 import play.api.mvc.EssentialFilter
 import play.filters.csrf.CSRFFilter
 import play.filters.headers.SecurityHeadersFilter
+
 /**
  * Provides filters.
  */
