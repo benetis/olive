@@ -15,21 +15,17 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= Seq(
+  "mysql" % "mysql-connector-java" % "5.1.36",
   "com.typesafe.play" %% "play-slick" % "2.0.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
   "com.mohiva" %% "play-silhouette" % "4.0.0-BETA4",
   "com.mohiva" %% "play-silhouette-password-bcrypt" % "4.0.0-BETA4",
-//  "com.mohiva" %% "play-silhouette-persistence-memory" % "4.0.0-BETA4",
   "com.mohiva" %% "play-silhouette-persistence" % "4.0.0-BETA4",
-  "org.webjars" %% "webjars-play" % "2.5.0",
   "net.codingwell" %% "scala-guice" % "4.0.1",
   "com.iheart" %% "ficus" % "1.2.0",
   "com.adrianhurt" %% "play-bootstrap" % "1.0-P25-B3",
   "com.mohiva" %% "play-silhouette-testkit" % "4.0.0-BETA4" % "test",
-  "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",	// Add bootstrap3 helpers and field constructors (http://play-bootstrap3.herokuapp.com/)
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
-  "org.webjars" %% "webjars-play" % "2.5.0",
-  "org.webjars" % "requirejs" % "2.2.0",
   specs2 % Test,
   cache,
   ws,
@@ -37,10 +33,13 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
 )
 
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.36"
-
-resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-resolvers += "Atlassian Releases" at "https://maven.atlassian.com/public/"
+// WebJars
+libraryDependencies ++= Seq(
+  "org.webjars" %% "webjars-play" % "2.5.0",
+  "org.webjars" % "requirejs" % "2.2.0",
+  "org.webjars" % "bootstrap" % "3.3.4",
+  "org.webjars" % "jquery" % "2.2.3"
+)
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
