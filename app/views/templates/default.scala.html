@@ -1,0 +1,17 @@
+@(title: String, loggedUser: Option[User] = None, withMainTabs: Boolean = true, tab: String = "", styles: Html = Html(""), scripts: Html = Html(""), modals: Html = Html(""))(content: Html)(implicit messages: Messages)
+
+@import controllers.routes
+
+@navbarContent = {
+    <ul class="nav navbar-nav navbar-right">
+    @loggedUser.map { u =>
+    <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
+    <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
+    }.getOrElse {
+        <li><a href="@routes.SignInController.view">@Messages("sign.in")</a></li>
+        <li><a href="@routes.SignUpController.view">@Messages("sign.up")</a></li>
+    }
+    </ul>
+}
+
+@templates.main(title, loggedUser, navbarContent, styles, scripts, modals)(content)
