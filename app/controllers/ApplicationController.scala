@@ -6,7 +6,7 @@ import com.mohiva.play.silhouette.api.{LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Controller
-import utils.auth.DefaultEnv
+import utils.auth.{AuthenticationController, DefaultEnv}
 
 import scala.concurrent.Future
 
@@ -21,7 +21,7 @@ class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   silhouette: Silhouette[DefaultEnv],
   implicit val webJarAssets: WebJarAssets)
-  extends Controller with I18nSupport {
+  extends AuthenticationController with I18nSupport {
 
   /**
    * Handles the index action.
@@ -29,7 +29,7 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def index = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.home(request.identity)))
+    Future.successful(Ok(views.html.home()))
   }
 
   /**
