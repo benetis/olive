@@ -1,4 +1,4 @@
-@(title: String, user: Option[models.User] = None)(content: Html)(implicit messages: Messages, webJarAssets: WebJarAssets)
+@(title: String, user: Option[models.User] = None, navbarContent: Html = Html(""), styles: Html = Html(""), scripts: Html = Html(""), modals: Html = Html(""))(content: Html)(implicit messages: Messages)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,7 @@
                 @content
             </div>
         </main>
-        <script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.min.js"))"></script>
-        <script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))"></script>
+        <script type="text/javascript" src="@routes.AssetsController.lib("jquery.min.js")"></script>
+        <script type="text/javascript" src="@routes.AssetsController.lib("bootstrap.min.js")"></script>
     </body>
 </html>
