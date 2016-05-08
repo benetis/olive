@@ -3,14 +3,15 @@
 @import controllers.routes
 
 @navbarContent = {
+    <ul class="nav navbar-nav">
     @if(withMainTabs) {
-        <ul class="nav navbar-nav">
-            @loggedUser.map { implicit user =>
-                    <li class="@("active".when(tab == "weatherStations"))"><a href="@routes.WeatherStationController.index">Weather stations</a></li>
+            @loggedUser.map { user =>
+                    <li class="@("active".when(tab == "weatherStations"))">
+                        <a href="@routes.WeatherStationController.index">Weather stations</a>
+                    </li>
             }
-        </ul>
     }
-
+    </ul>
     <ul class="nav navbar-nav navbar-right">
     @loggedUser.map { u =>
     <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
