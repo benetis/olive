@@ -1,6 +1,6 @@
 @()(implicit messages: Messages, loggedUser: models.User, webJarAssets: WebJarAssets)
 
-@templates.default(Messages("home.title")) {
+@templates.logged(Messages("home.title")) {
     <div class="user col-md-6 col-md-offset-3">
         <div class="row">
             <hr class="col-md-12" />
