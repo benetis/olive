@@ -15,13 +15,11 @@ import scala.concurrent.Future
  *
  * @param messagesApi The Play messages API.
  * @param silhouette The Silhouette stack.
- * @param socialProviderRegistry The social provider registry.
  * @param webJarAssets The webjar assets implementation.
  */
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   silhouette: Silhouette[DefaultEnv],
-  socialProviderRegistry: SocialProviderRegistry,
   implicit val webJarAssets: WebJarAssets)
   extends Controller with I18nSupport {
 
