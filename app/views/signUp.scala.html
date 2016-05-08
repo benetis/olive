@@ -2,7 +2,7 @@
 
 @import b3.inline.fieldConstructor
 
-@templates.main(Messages("sign.up.title")) {
+@templates.default(Messages("sign.up.title")) {
     @request.flash.get("error").map { msg =>
         <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
