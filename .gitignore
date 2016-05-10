@@ -11,3 +11,5 @@ bin
 libexec
 .sbtserver/*
 /public/bower_components
+/app/node_modules
+npm-debug.log
