@@ -25,7 +25,7 @@ define([ "../main" ], function(main) {
                 }
             });
         }
-
+//TODO reverse routing with JS routing
         $.when($.getJSON("/samples/2016.05.10/2016.05.10").then(function(data) {
             console.log(data);
             var jsonData = data;
