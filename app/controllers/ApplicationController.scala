@@ -47,10 +47,10 @@ class ApplicationController @Inject() (
     silhouette.env.authenticatorService.discard(request.authenticator, result)
   }
 
-  def javascriptRoutes = Action { implicit request =>
+  def jsRoutes = Action { implicit request =>
     Ok(
       JavaScriptReverseRouter("jsRoutes")(
-        routes.javascript.SampleController.getRange("1", "2"))
-    ).as("text/javascript")
+        routes.javascript.SampleController.getRange
+    )).as("text/javascript")
   }
 }
