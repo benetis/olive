@@ -10,4 +10,4 @@ play-scala
 bin
 libexec
 .sbtserver/*
-/app/assets/bower_components
+/public/bower_components
