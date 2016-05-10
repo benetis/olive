@@ -22,7 +22,9 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
    val result = sql"""select avg(s.id), avg(s.temperature), avg(s.humidity),
                              avg(s.wind_direction), avg(s.wind_speed), avg(s.rain_level), s.clocked
       from sample s
-      group by hour(s.clocked)""".as[Sample]
+      where s.clocked >= now() - INTERVAL 1 DAY
+      group by hour(s.clocked);
+     """.as[Sample]
     db.run(result)
   }
 
