@@ -8,4 +8,9 @@ Software to store, aggregate weather data and display it to farmers.
 - Basic plant disease forecasting filters
 - Scripts to collect weather station sensor data - https://github.com/benetis/olive_hardware
 
+
+#### Run with
+-Dsbt.jse.engineType=Node
+
+
 Copyright (c) 2016 Zygimantas Benetis (@benetisz).
