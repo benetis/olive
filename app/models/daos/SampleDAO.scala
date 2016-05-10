@@ -19,7 +19,8 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   def all(): Future[Seq[Sample]] = db.run(Samples.result)
 
   def getJsonSamples(): Future[Seq[Sample]] = {
-   val result = sql"""select s.id, s.temperature, s.humidity, s.wind_direction, s.wind_speed, s.rain_level, s.clocked
+   val result = sql"""select avg(s.id), avg(s.temperature), avg(s.humidity),
+                             avg(s.wind_direction), avg(s.wind_speed), avg(s.rain_level), s.clocked
       from sample s
       group by hour(s.clocked)""".as[Sample]
     db.run(result)
