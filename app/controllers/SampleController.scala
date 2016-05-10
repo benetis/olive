@@ -23,7 +23,7 @@ class SampleController @Inject()(
   silhouette: Silhouette[DefaultEnv]
 ) extends Controller with I18nSupport with AuthenticationController {
 
-  def index = silhouette.SecuredAction.async {
+  def index = silhouette.SecuredAction.async { implicit request =>
     sampleDao.all().map {
       samples: Seq[Sample] => Ok(views.html.samples(samples)) }
   }
