@@ -39,8 +39,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "requirejs" % "2.2.0",
   "org.webjars" % "bootstrap" % "3.3.4",
   "org.webjars" % "jquery" % "2.2.3",
-  "org.webjars" % "chartjs" % "1.0.2",
-  "org.webjars" % "bootstrap-material-design" % "0.5.9"
+  "org.webjars" % "chartjs" % "1.0.2"
+//  "org.webjars" % "bootstrap-material-design" % "0.5.9"
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
