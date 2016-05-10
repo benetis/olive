@@ -6,6 +6,7 @@ import com.mohiva.play.silhouette.api.Silhouette
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 import models.Sample
+import models.Sample.tempAndClockedFormat
 import models.daos.{SampleDAO, WeatherStationDAO}
 import play.api._
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -29,8 +30,8 @@ class SampleController @Inject()(
   }
 
   def getRange(from: String, to: String) = silhouette.SecuredAction.async { implicit request =>
-    sampleDao.temperatures().map {
-      samples  => Ok(samples.toString) }
+    sampleDao.getJsonSamples().map {
+      samples  => Ok(Json.toJson(samples)(tempAndClockedFormat)) }
   }
 
   //TODO: can use some imrpovements for code
