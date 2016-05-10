@@ -41,3 +41,5 @@ xing = Xing
 yahoo = Yahoo
 
 weather.stations.title = Weather stations
+samples.title = Weather history
+samples = Weather history
