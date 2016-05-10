@@ -4,8 +4,12 @@ import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api.{LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+import play.Routes
+import play.api.mvc._
+import play.api.routing._
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Controller
+import play.api.mvc.{Action, Controller}
+import play.api.routing.JavaScriptReverseRouter
 import utils.auth.{AuthenticationController, DefaultEnv}
 
 import scala.concurrent.Future
@@ -41,5 +45,12 @@ class ApplicationController @Inject() (
     val result = Redirect(routes.ApplicationController.index())
     silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
     silhouette.env.authenticatorService.discard(request.authenticator, result)
+  }
+
+  def javascriptRoutes = Action { implicit request =>
+    Ok(
+      JavaScriptReverseRouter("jsRoutes")(
+        routes.javascript.SampleController.getRange("1", "2"))
+    ).as("text/javascript")
   }
 }
