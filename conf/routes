@@ -30,4 +30,4 @@ GET         /img/*file                     controllers.AssetsController.img(path
 GET         /common/css/*file              controllers.AssetsController.commonCss(path="/public/lib/common/stylesheets", file: Asset)
 GET         /common/js/*file               controllers.AssetsController.commonJs(path="/public/lib/common/javascripts", file: Asset)
 GET         /common/img/*file              controllers.AssetsController.commonImg(path="/public/lib/common/images", file: Asset)
-GET         /jsroutes.js                   controllers.ApplicationController.jsRoutes()
+GET         /jsRoutes.js                      controllers.ApplicationController.jsRoutes()
