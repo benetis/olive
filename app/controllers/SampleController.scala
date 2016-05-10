@@ -28,6 +28,11 @@ class SampleController @Inject()(
       samples: Seq[Sample] => Ok(views.html.samples(samples)) }
   }
 
+  def getRange(from: String, to: String) = silhouette.SecuredAction.async { implicit request =>
+    sampleDao.temperatures().map {
+      samples: Seq[Float] => Ok(Json.toJson(samples)) }
+  }
+
   //TODO: can use some imrpovements for code
   def insertSample() = Action.async { implicit request =>
     request.body.asJson.map { json => json.validate[Sample] match {

@@ -18,6 +18,8 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
 
   def all(): Future[Seq[Sample]] = db.run(Samples.result)
 
+  def temperatures(): Future[Seq[Float]] = db.run(Samples.map(_.temperature).result)
+
   def insert(sample: Sample): Future[Unit] = db.run(Samples += sample).map { _ => () }
 
   private class SamplesTable(tag: Tag) extends Table[Sample](tag, "SAMPLE") {
