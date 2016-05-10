@@ -18,7 +18,16 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
 
   def all(): Future[Seq[Sample]] = db.run(Samples.result)
 
-  def temperatures(): Future[Seq[Float]] = db.run(Samples.map(_.temperature).result)
+  def temperatures(): Future[Seq[(Float, Timestamp)]] = {
+   val result = sql"""select s.temperature, s.clocked
+      from sample s
+      group by hour(s.clocked)""".as[(Float, Timestamp)]
+
+    val q = for {
+      c ← Samples
+    } yield (c.temperature, c.clocked)
+    db.run(result)
+  }
 
   def insert(sample: Sample): Future[Unit] = db.run(Samples += sample).map { _ => () }
 

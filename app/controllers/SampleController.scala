@@ -30,7 +30,7 @@ class SampleController @Inject()(
 
   def getRange(from: String, to: String) = silhouette.SecuredAction.async { implicit request =>
     sampleDao.temperatures().map {
-      samples: Seq[Float] => Ok(Json.toJson(samples)) }
+      samples  => Ok(samples.toString) }
   }
 
   //TODO: can use some imrpovements for code
