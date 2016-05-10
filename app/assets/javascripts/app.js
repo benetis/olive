@@ -1,5 +1,6 @@
 define(["jquery", "bootstrap"], function($, bootstrap) {
 });
 
-(function() {
-})();
+// require(['Chartjs'], function(Chart){
+//     var myChart = new Chart({});
+// });
