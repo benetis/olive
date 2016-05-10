@@ -1,31 +1,58 @@
 define([ "../main" ], function(main) {
     require(["jquery"], function($){
         function buildChart(labels, data) {
-            var ctx = document.getElementById("myChart");
+            var ctx = document.getElementById("myChart").getContext("2d");
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
-                    datasets: [{
-                        fill: false,
-                        backgroundColor: "rgba(75,192,192,0.4)",
-                        borderColor: "rgba(75,192,192,1)",
-                        label: 'Temperature °C',
-                        data: data
-                    }]
+                    datasets: [
+                        {
+                            fill: false,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            label: 'Temperature °C',
+                            yAxisID: "y-axis-1",
+                            data: data
+                        },
+                        {
+                            fill: false,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            label: 'Second axis',
+                            yAxisID: "y-axis-2",
+                            data: data
+                        }
+                    ]
                 },
                 options: {
+                    responsive: true,
+                    hoverMode: 'label',
+                    stacked: false,
                     scales: {
-                        yAxes: [{
-                            ticks: {
-                                // beginAtZero:true
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                offsetGridLines: false
                             }
-                        }]
+                        }],
+                        yAxes: [{
+                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: true,
+                            position: "left",
+                            id: "y-axis-1",
+                        }, {
+                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: true,
+                            position: "right",
+                            id: "y-axis-2"
+                        }],
                     }
                 }
             });
         }
-//TODO reverse routing with JS routing
+
+
         $.when($.getJSON("/samples/2016.05.10/2016.05.10").then(function(data) {
             console.log(data);
             var jsonData = data;
