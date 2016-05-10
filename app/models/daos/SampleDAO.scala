@@ -29,13 +29,13 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   def insert(sample: Sample): Future[Unit] = db.run(Samples += sample).map { _ => () }
 
   private class SamplesTable(tag: Tag) extends Table[Sample](tag, "SAMPLE") {
-    def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
-    def temperature = column[Float]("TEMPERATURE")
-    def humidity = column[Float]("HUMIDITY")
-    def windDirection = column[String]("WIND_DIRECTION")
-    def windSpeed = column[Float]("WIND_SPEED")
-    def rainLevel = column[Float]("RAIN_LEVEL")
-    def clocked = column[Timestamp]("CLOCKED", SqlType("timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"))
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def temperature = column[Float]("temperature")
+    def humidity = column[Float]("humidity")
+    def windDirection = column[String]("wind_direction")
+    def windSpeed = column[Float]("wind_speed")
+    def rainLevel = column[Float]("rain_level")
+    def clocked = column[Timestamp]("clocked", SqlType("timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"))
 
     def * = (id.?, temperature, humidity, windDirection, windSpeed, rainLevel, clocked) <> ((Sample.apply _).tupled, Sample.unapply _)
   }
