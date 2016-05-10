@@ -21,3 +21,26 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+$.getJSON("/samples/2016.05.10/2016.05.10", function(data) {
+    var jsonData = data;
+    arrayClocked = [];
+    arrayRest = [];
+    for(var indexGroup in jsonData){
+        if (!jsonData.hasOwnProperty(indexGroup)) {
+        } else {
+            // loop in the group in the json data
+            for (var item in jsonData[indexGroup]) {
+                var group = jsonData[indexGroup];
+                if (group.hasOwnProperty(item)) {
+                    if (item == "clocked") {
+                        arrayClocked.push(group[item]);
+                    } else {
+                        arrayRest.push(group[item]);
+                    }
+                }
+            }
+        }
+    }
+    console.log(arrayClocked, arrayRest)
+});
