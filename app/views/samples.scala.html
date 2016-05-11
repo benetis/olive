@@ -1,7 +1,7 @@
 @(samples: Seq[models.Sample])(implicit messages: Messages, loggedUser: User)
 
 @templates.logged(Messages("samples.title"), tab = "samples") {
-    <div class="sample col-md-6 col-md-offset-3">
+    <div class="sample col-md-8 col-md-offset-2">
         <div class="row data">
             <div class="col-md-12">
                     <canvas id="myChart" width="400" height="400"></canvas>
