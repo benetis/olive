@@ -36,6 +36,7 @@ object Sample {
       val seq = samples.map(sample => {
         Json.obj(
           "temperature" -> JsString(sample.temperature.toString),
+          "windSpeed" -> JsString(sample.windSpeed.toString),
           "humidity" -> JsString(sample.humidity.toString),
           "clocked" -> JsString(format.format(sample.clocked))
         )

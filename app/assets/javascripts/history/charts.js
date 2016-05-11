@@ -9,8 +9,8 @@ define([ "../main" ], function(main) {
                         {
                             type: 'line',
                             fill: false,
-                            backgroundColor: "#F77A52",
                             borderColor: "#FF974F",
+                            backgroundColor: "#F77A52",
                             label: 'Temperature °C',
                             yAxisID: "y-axis-1",
                             data: data.temperature
@@ -23,6 +23,15 @@ define([ "../main" ], function(main) {
                             label: 'Humidity %',
                             yAxisID: "y-axis-2",
                             data: data.humidity
+                        },
+                        {
+                            type: 'line',
+                            fill: false,
+                            backgroundColor: "#304269",
+                            borderColor: "#91BED4",
+                            label: 'Wind speed m/s',
+                            yAxisID: "y-axis-3",
+                            data: data.windSpeed
                         }
                     ]
                 },
@@ -56,7 +65,16 @@ define([ "../main" ], function(main) {
                                 display: true,
                                 labelString: 'Humidity %'
                             }
-                        }],
+                        }, {
+                            type: "linear",
+                            display: true,
+                            position: "right",
+                            id: "y-axis-3",
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Wind speed m/s'
+                            }
+                        }]
                     }
                 }
             });
