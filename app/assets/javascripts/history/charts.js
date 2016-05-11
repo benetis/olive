@@ -37,12 +37,12 @@ define([ "../main" ], function(main) {
                             }
                         }],
                         yAxes: [{
-                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            type: "linear",
                             display: true,
                             position: "left",
                             id: "y-axis-1",
                         }, {
-                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            type: "linear",
                             display: true,
                             position: "right",
                             id: "y-axis-2"
