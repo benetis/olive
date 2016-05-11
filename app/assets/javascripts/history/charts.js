@@ -9,20 +9,20 @@ define([ "../main" ], function(main) {
                         {
                             type: 'line',
                             fill: false,
-                            backgroundColor: "rgba(75,192,192,0.4)",
-                            borderColor: "rgba(75,192,192,1)",
+                            backgroundColor: "#F77A52",
+                            borderColor: "#FF974F",
                             label: 'Temperature °C',
                             yAxisID: "y-axis-1",
-                            data: data
+                            data: data.temperature
                         },
                         {
                             type: 'line',
                             fill: false,
-                            backgroundColor: "rgba(75,192,192,0.4)",
-                            borderColor: "rgba(75,192,192,1)",
-                            label: 'Second axis',
+                            borderColor: "#A49A87",
+                            backgroundColor: "#644D52",
+                            label: 'Humidity %',
                             yAxisID: "y-axis-2",
-                            data: [51, 65, 40, 49, 60, 37, 40]
+                            data: data.humidity
                         }
                     ]
                 },
@@ -43,11 +43,19 @@ define([ "../main" ], function(main) {
                             display: true,
                             position: "left",
                             id: "y-axis-1",
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Temperature °C'
+                            }
                         }, {
                             type: "linear",
                             display: true,
                             position: "right",
-                            id: "y-axis-2"
+                            id: "y-axis-2",
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Humidity %'
+                            }
                         }],
                     }
                 }
@@ -70,7 +78,8 @@ define([ "../main" ], function(main) {
                                 var date = Date.createFromMysql(group[item]);
                                 arrayClocked.push(date.getHours());
                             } else {
-                                arrayRest.push(group[item]);
+                                if(!arrayRest[item]) { arrayRest[item] = []; }
+                                arrayRest[item].push(group[item]);
                             }
                         }
                     }
