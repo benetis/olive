@@ -3,11 +3,11 @@ define([ "../main" ], function(main) {
         function buildChart(labels, data) {
             var ctx = document.getElementById("myChart").getContext("2d");
             var myChart = new Chart(ctx, {
-                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
                         {
+                            type: 'line',
                             fill: false,
                             backgroundColor: "rgba(75,192,192,0.4)",
                             borderColor: "rgba(75,192,192,1)",
@@ -16,12 +16,13 @@ define([ "../main" ], function(main) {
                             data: data
                         },
                         {
+                            type: 'line',
                             fill: false,
                             backgroundColor: "rgba(75,192,192,0.4)",
                             borderColor: "rgba(75,192,192,1)",
                             label: 'Second axis',
                             yAxisID: "y-axis-2",
-                            data: data
+                            data: [51, 65, 40, 49, 60, 37, 40]
                         }
                     ]
                 },
@@ -32,8 +33,9 @@ define([ "../main" ], function(main) {
                     scales: {
                         xAxes: [{
                             display: true,
-                            gridLines: {
-                                offsetGridLines: false
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Hour'
                             }
                         }],
                         yAxes: [{
@@ -54,7 +56,6 @@ define([ "../main" ], function(main) {
 
 
         $.when($.getJSON("/samples/2016.05.10/2016.05.10").then(function(data) {
-            console.log(data);
             var jsonData = data;
             arrayClocked = [];
             arrayRest = [];
@@ -75,6 +76,7 @@ define([ "../main" ], function(main) {
                     }
                 }
             }
+            console.log(arrayRest);
             buildChart(arrayClocked, arrayRest);
         }));
 
