@@ -50,7 +50,7 @@ define([ "../main" ], function(main) {
                         yAxes: [{
                             type: "linear",
                             display: true,
-                            position: "left",
+                            position: "right",
                             id: "y-axis-1",
                             scaleLabel: {
                                 display: true,
