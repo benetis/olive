@@ -24,6 +24,6 @@ class PlantDiseaseController @Inject()(
 
   def index = silhouette.SecuredAction.async { implicit request =>
     sampleDao.all().map {
-      samples: Seq[Sample] => Ok(views.html.samples(samples)) }
+      samples: Seq[Sample] => Ok(views.html.plant_models()) }
   }
 }
