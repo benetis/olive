@@ -103,7 +103,6 @@ define([ "../main" ], function(main) {
                     }
                 }
             }
-            console.log(arrayRest);
             buildChart(arrayClocked, arrayRest);
         }));
 
