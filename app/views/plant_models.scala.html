@@ -1,0 +1,13 @@
+@(samples: Seq[models.Sample])(implicit messages: Messages, loggedUser: User)
+
+@templates.logged(Messages("samples.title"), tab = "samples") {
+    <div class="sample col-md-8 col-md-offset-2">
+        <div class="row data">
+            <div class="col-md-12">
+                    Plant disease models
+            </div>
+        </div>
+    </div>
+    @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
+                      module = routes.Assets.at("javascripts/plantDiseaseModels/main.js").url)
+}
