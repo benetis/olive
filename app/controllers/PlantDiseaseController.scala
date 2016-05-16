@@ -3,9 +3,9 @@ package controllers
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
-import models.{PlantDiseaseFilter, Sample}
+import models.{PlantDiseaseFilter, PlantDiseaseModel, Sample}
 import models.Sample.tempAndClockedFormat
-import models.daos.{PlantDiseaseFilterDAO, SampleDAO}
+import models.daos.{PlantDiseaseFilterDAO, PlantDiseaseModelDAO, SampleDAO}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
@@ -17,7 +17,7 @@ import scala.concurrent.Future
 
 @Singleton
 class PlantDiseaseController @Inject()(
-                                        plantDiseaseModelDao: PlantDiseaseFilterDAO,
+                                        plantDiseaseModelDao: PlantDiseaseModelDAO,
                                         val messagesApi: MessagesApi,
                                         silhouette: Silhouette[DefaultEnv]
 ) extends Controller with I18nSupport with AuthenticationController {
@@ -25,6 +25,6 @@ class PlantDiseaseController @Inject()(
   def index = silhouette.SecuredAction.async { implicit request =>
     plantDiseaseModelDao.createTable()
     plantDiseaseModelDao.all().map {
-      model: Seq[PlantDiseaseFilter] => Ok(views.html.plant_models()) }
+      model: Seq[PlantDiseaseModel] => Ok(views.html.plant_models()) }
   }
 }
