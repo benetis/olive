@@ -45,3 +45,6 @@ samples.title = Weather history
 samples = Weather history
 
 plant.disease.models.create = Create new plant disease model
+plant.disease.models.name = Name
+plant.disease.models.description = Description
+plant.disease.models.modelImageUrl = Plant image url
