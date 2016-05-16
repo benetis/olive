@@ -18,12 +18,12 @@
                     </div>
                     <div class="list-group-separator"></div>
                 </div>
-                <a href="" class="btn btn-success btn-fab pull-right" ><i class="material-icons">grade</i></a>
+                <a href="" class="btn btn-success btn-fab pull-right create-plant-disease" ><i class="material-icons">grade</i></a>
             </div>
         </div>
     </div>
 
-    <div class="modal">
+    <div class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -41,5 +41,5 @@
         </div>
     </div>
     @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
-                      module = routes.Assets.at("javascripts/plantDiseaseModels/main.js").url)
+                      module = routes.Assets.at("javascripts/plantDiseaseModels/plantDiseaseModels.js").url)
 }
