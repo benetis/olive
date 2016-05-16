@@ -6,8 +6,11 @@ define([ "../main"], function(main) {
         });
 
         $(".save-plant-disease-condition").click(function (e) {
-            var condition = $(".plant-disease-condition-form").serialize();
-            console.log(condition);
+            var form = $(".plant-disease-condition-form");
+            if (!form[0].checkValidity()) {
+                form.find('input[type="submit"]').click();
+                return false;
+            }
             // TODO: Add reverse routing
             // $.post('/plantsDiseaseModels',
             //     form.serialize(),

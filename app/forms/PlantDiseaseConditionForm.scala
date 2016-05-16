@@ -17,7 +17,7 @@ object PlantDiseaseConditionForm {
       "paramId" -> number,
       "condition" -> of(floatFormat),
       "conditionParam" -> number,
-      "duration" -> number
+      "duration" -> number(min = 0)
     )(Data.apply)(Data.unapply)
   )
 
