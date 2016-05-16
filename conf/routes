@@ -19,6 +19,7 @@ GET         /weatherStations               controllers.WeatherStationController.
 
 GET         /plantsDiseaseModels           controllers.PlantDiseaseController.index
 GET         /createPlantsDiseaseModel      controllers.PlantDiseaseController.createModel
+POST        /createPlantsDiseaseCondition  controllers.PlantDiseaseController.conditionSubmit
 POST        /plantsDiseaseModels           controllers.PlantDiseaseController.submit
 
 # Map static resources from the /public folder to the /assets URL path
