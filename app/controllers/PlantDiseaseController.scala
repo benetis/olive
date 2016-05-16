@@ -23,6 +23,7 @@ class PlantDiseaseController @Inject()(
 ) extends Controller with I18nSupport with AuthenticationController {
 
   def index = silhouette.SecuredAction.async { implicit request =>
+    plantDiseaseModelDao.createTable()
     plantDiseaseModelDao.all().map {
       model: Seq[PlantDiseaseFilter] => Ok(views.html.plant_models()) }
   }
