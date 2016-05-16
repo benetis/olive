@@ -20,12 +20,12 @@ class PlantDiseaseConditionDAO @Inject()(protected val dbConfigProvider: Databas
 
   def insert(plantDiseaseCondition: PlantDiseaseCondition): Future[Unit] = db.run(plantDiseaseConditions += plantDiseaseCondition).map { _ => () }
 
-  private class PlantDiseaseConditionTable(tag: Tag) extends Table[PlantDiseaseCondition](tag, "PLANT_DISEASE_FILTER") {
+  private class PlantDiseaseConditionTable(tag: Tag) extends Table[PlantDiseaseCondition](tag, "PLANT_DISEASE_CONDITION") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def paramId = column[Int]("param_id")
     def modelId = column[Int]("model_id")
     def condition = column[Float]("condition")
-    def conditionParam = column[String]("condition_param")
+    def conditionParam = column[Int]("condition_param")
     def duration = column[Int]("duration")
 
     def * = (id.?, paramId, modelId, condition, conditionParam, duration ) <> ((PlantDiseaseCondition.apply _).tupled, PlantDiseaseCondition.unapply _)

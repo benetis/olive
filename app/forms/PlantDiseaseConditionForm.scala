@@ -16,7 +16,7 @@ object PlantDiseaseConditionForm {
     mapping(
       "paramId" -> number,
       "condition" -> of(floatFormat),
-      "conditionParam" -> nonEmptyText,
+      "conditionParam" -> number,
       "duration" -> number
     )(Data.apply)(Data.unapply)
   )
@@ -24,6 +24,6 @@ object PlantDiseaseConditionForm {
   case class Data(
     paramId: Int,
     condition: Float,
-    conditionParam: String,
+    conditionParam: Int,
     duration: Int)
 }

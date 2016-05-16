@@ -19,6 +19,7 @@ import scala.concurrent.Future
 @Singleton
 class PlantDiseaseController @Inject()(
                                         plantDiseaseModelDao: PlantDiseaseModelDAO,
+                                        plantDiseaseConditionDao: PlantDiseaseConditionDAO,
                                         val messagesApi: MessagesApi,
                                         silhouette: Silhouette[DefaultEnv]
 ) extends Controller with I18nSupport with AuthenticationController {
