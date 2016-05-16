@@ -2,6 +2,7 @@ package forms
 
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 
 /**
  * The form which handles the submission of the credentials.
@@ -13,7 +14,7 @@ object PlantDiseaseModelForm {
    */
   val form = Form(
     mapping(
-      "name" -> nonEmptyText,
+      "name" -> nonEmptyText(maxLength = 20),
       "description" -> text,
       "modelImageUrl" -> text
     )(Data.apply)(Data.unapply)
@@ -23,4 +24,5 @@ object PlantDiseaseModelForm {
     name: String,
     description: String,
     modelImageUrl: String)
+
 }

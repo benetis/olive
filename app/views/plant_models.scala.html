@@ -31,17 +31,19 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">@Messages("plant.disease.models.create")</h4>
                 </div>
-                <div class="modal-body">
-                    @helper.form(action = routes.PlantDiseaseController.submit(), 'class -> "plant-disease-form") {
-                        @helper.CSRF.formField
-                        @b3.text(plantDiseaseModelForm("name"), '_label -> Messages("plant.disease.models.name"), 'class -> "form-control input-lg col-md-10")
-                        @b3.text(plantDiseaseModelForm("description"), '_label -> Messages("plant.disease.models.description"), 'class -> "form-control input-lg col-md-10")
-                        @b3.text(plantDiseaseModelForm("modelImageUrl"), '_label -> Messages("plant.disease.models.modelImageUrl"), 'class -> "form-control input-lg col-md-10")
+                @helper.form(action = routes.PlantDiseaseController.submit(), 'class -> "plant-disease-form") {
+                    <div class="modal-body">
+                    @helper.CSRF.formField
+                    @b3.text(plantDiseaseModelForm("name"), '_label -> Messages("plant.disease.models.name"), 'class -> "form-control input-lg col-md-10")
+                    @b3.text(plantDiseaseModelForm("description"), '_label -> Messages("plant.disease.models.description"), 'class -> "form-control input-lg col-md-10")
+                    @b3.text(plantDiseaseModelForm("modelImageUrl"), '_label -> Messages("plant.disease.models.modelImageUrl"), 'class -> "form-control input-lg col-md-10")
+                    </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary save-plant-disease">Save changes</button>
+                            <input type="submit" style="display:none;"/>
+                    </div>
                     }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save-plant-disease">Save changes</button>
                 </div>
             </div>
         </div>

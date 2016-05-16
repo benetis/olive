@@ -31,7 +31,7 @@ class PlantDiseaseController @Inject()(
   def submit = silhouette.SecuredAction.async { implicit request =>
     PlantDiseaseModelForm.form.bindFromRequest.fold(
       form => {
-        Future.successful(BadRequest(views.html.plant_models(form)))
+        Future.successful(Ok(Json.toJson(form.errorsAsJson)))
       },
       data => {
         Future.successful(Ok(data.toString))

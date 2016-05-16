@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "Chart.js": "chartjs#^2.1.2"
+    "Chart.js": "chartjs#^2.1.2",
+    "jquery-validation": "^1.15.0"
   }
 }

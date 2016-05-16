@@ -1,4 +1,4 @@
-define([ "../main" ], function(main) {
+define([ "../main"], function(main) {
     require(["jquery"], function($) {
         $(".create-plant-disease").click(function(e) {
             e.preventDefault();
@@ -6,14 +6,17 @@ define([ "../main" ], function(main) {
         });
 
         $(".save-plant-disease").click(function (e) {
-            e.preventDefault();
+            var form = $(".plant-disease-form");
+            if (!form[0].checkValidity()) {
+                $('form').find('input[type="submit"]').click();
+                return false;
+            }
             //TODO: Add reverse routing
             $.post('/plantsDiseaseModels',
-                $(".plant-disease-form").serialize(),
-                function(data, status, xhr){
-                    console.log(data);
-            });
-        });
+                form.serialize(),
+                function (data, status, xhr) {
 
+                });
+        });
     });
 });
