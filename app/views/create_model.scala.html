@@ -1,4 +1,4 @@
-@(plantDiseaseModelForm: Form[forms.PlantDiseaseModelForm.Data])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@(plantDiseaseModelForm: Form[forms.PlantDiseaseModelForm.Data], plantDiseaseConditionForm: Form[forms.PlantDiseaseConditionForm.Data])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 @import b3.inline.fieldConstructor
 
 @templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
@@ -28,7 +28,8 @@
                 @helper.form(action = routes.PlantDiseaseController.conditionSubmit(), 'class -> "plant-disease-condition-form") {
                     <div class="modal-body">
                     @helper.CSRF.formField
-                </div>
+                    @b3.select( plantDiseaseConditionForm("paramId"), options = Seq("1"->Messages("temperature"), "2"->Messages("humidity")), '_label -> Messages("plant.disease.models.select.condition") )
+                    </div>
                     <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary save-plant-disease-condition">Save changes</button>

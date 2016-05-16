@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
-import forms.{PlantDiseaseModelForm, SignInForm}
+import forms.{PlantDiseaseConditionForm, PlantDiseaseModelForm, SignInForm}
 import models.{PlantDiseaseCondition, PlantDiseaseModel, Sample}
 import models.Sample.tempAndClockedFormat
 import models.daos.{PlantDiseaseConditionDAO, PlantDiseaseModelDAO, SampleDAO}
@@ -29,7 +29,8 @@ class PlantDiseaseController @Inject()(
   }
 
   def createModel = silhouette.SecuredAction.async { implicit request =>
-      Future.successful(Ok(views.html.create_model(PlantDiseaseModelForm.form)))
+      Future.successful(Ok(views.html.create_model(PlantDiseaseModelForm.form,
+                                                   PlantDiseaseConditionForm.form)))
   }
 
   def submit = silhouette.SecuredAction.async { implicit request =>

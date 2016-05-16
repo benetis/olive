@@ -8,4 +8,3 @@ case class PlantDiseaseCondition(id: Option[Long],
                                  duration: Int
                             ){
 }
-
