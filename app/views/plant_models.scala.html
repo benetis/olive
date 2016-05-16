@@ -19,35 +19,11 @@
                     </div>
                     <div class="list-group-separator"></div>
                 </div>
-                <a href="" class="btn btn-success btn-fab pull-right create-plant-disease" ><i class="material-icons">grade</i></a>
+                <a href="@routes.PlantDiseaseController.createModel()" class="btn btn-success btn-fab pull-right create-plant-disease" ><i class="material-icons">grade</i></a>
             </div>
         </div>
     </div>
 
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">@Messages("plant.disease.models.create")</h4>
-                </div>
-                @helper.form(action = routes.PlantDiseaseController.submit(), 'class -> "plant-disease-form") {
-                    <div class="modal-body">
-                    @helper.CSRF.formField
-                    @b3.text(plantDiseaseModelForm("name"), '_label -> Messages("plant.disease.models.name"), 'class -> "form-control input-lg col-md-10")
-                    @b3.text(plantDiseaseModelForm("description"), '_label -> Messages("plant.disease.models.description"), 'class -> "form-control input-lg col-md-10")
-                    @b3.url(plantDiseaseModelForm("modelImageUrl"), '_label -> Messages("plant.disease.models.modelImageUrl"), 'class -> "form-control input-lg col-md-10")
-                    </div>
-                    <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary save-plant-disease">Save changes</button>
-                            <input type="submit" style="display:none;"/>
-                    </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
     @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
                       module = routes.Assets.at("javascripts/plantDiseaseModels/plantDiseaseModels.js").url)
 }

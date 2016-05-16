@@ -1,22 +1,22 @@
 define([ "../main"], function(main) {
     require(["jquery"], function($) {
-        $(".create-plant-disease").click(function(e) {
-            e.preventDefault();
-            $(".modal").modal("show");
-        });
+        // $(".create-plant-disease").click(function(e) {
+        //     e.preventDefault();
+        //     $(".modal").modal("show");
+        // });
 
-        $(".save-plant-disease").click(function (e) {
-            var form = $(".plant-disease-form");
-            if (!form[0].checkValidity()) {
-                $('form').find('input[type="submit"]').click();
-                return false;
-            }
-            //TODO: Add reverse routing
-            $.post('/plantsDiseaseModels',
-                form.serialize(),
-                function (data, status, xhr) {
-
-                });
-        });
+        // $(".save-plant-disease").click(function (e) {
+        //     var form = $(".plant-disease-form");
+        //     if (!form[0].checkValidity()) {
+        //         $('form').find('input[type="submit"]').click();
+        //         return false;
+        //     }
+        //     //TODO: Add reverse routing
+        //     $.post('/plantsDiseaseModels',
+        //         form.serialize(),
+        //         function (data, status, xhr) {
+        //
+        //         });
+        // });
     });
 });

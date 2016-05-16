@@ -28,6 +28,10 @@ class PlantDiseaseController @Inject()(
       model: Seq[PlantDiseaseModel] => Ok(views.html.plant_models(PlantDiseaseModelForm.form)) }
   }
 
+  def createModel = silhouette.SecuredAction.async { implicit request =>
+      Future.successful(Ok(views.html.create_model(PlantDiseaseModelForm.form)))
+  }
+
   def submit = silhouette.SecuredAction.async { implicit request =>
     PlantDiseaseModelForm.form.bindFromRequest.fold(
       form => {
