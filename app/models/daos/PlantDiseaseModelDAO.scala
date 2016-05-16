@@ -14,9 +14,9 @@ import scala.concurrent.Future
 class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] {
   import driver.api._
 
-  private val PlantDiseaseModels = TableQuery[PlantDiseaseModelTable]
+  private val plantDiseaseModels = TableQuery[PlantDiseaseModelTable]
 
-  def all(): Future[Seq[PlantDiseaseModel]] = db.run(PlantDiseaseModels.result)
+  def all(): Future[Seq[PlantDiseaseModel]] = db.run(plantDiseaseModels.result)
 
   private class PlantDiseaseModelTable(tag: Tag) extends Table[PlantDiseaseModel](tag, "PLANT_DISEASE_MODEL") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
@@ -26,5 +26,9 @@ class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseCon
     def duration = column[Int]("duration")
 
     def * = (id.?, paramId, condition, conditionParam, duration) <> ((PlantDiseaseModel.apply _).tupled, PlantDiseaseModel.unapply _)
+  }
+
+  def createTable() = {
+    db.run(plantDiseaseModels.schema.create)
   }
 }
