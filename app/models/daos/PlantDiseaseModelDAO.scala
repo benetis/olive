@@ -2,7 +2,7 @@ package models.daos
 
 import javax.inject.Inject
 
-import models.{PlantDiseaseFilter, PlantDiseaseModel}
+import models.{PlantDiseaseCondition, PlantDiseaseModel}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile

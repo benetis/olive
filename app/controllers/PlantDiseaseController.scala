@@ -4,9 +4,9 @@ import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
 import forms.{PlantDiseaseModelForm, SignInForm}
-import models.{PlantDiseaseFilter, PlantDiseaseModel, Sample}
+import models.{PlantDiseaseCondition, PlantDiseaseModel, Sample}
 import models.Sample.tempAndClockedFormat
-import models.daos.{PlantDiseaseFilterDAO, PlantDiseaseModelDAO, SampleDAO}
+import models.daos.{PlantDiseaseConditionDAO, PlantDiseaseModelDAO, SampleDAO}
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
