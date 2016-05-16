@@ -48,3 +48,12 @@ plant.disease.models.create = Create new plant disease model
 plant.disease.models.name = Name
 plant.disease.models.description = Description
 plant.disease.models.modelImageUrl = Plant image url
+
+plant.disease.models.condition.create = Create new condition
+plant.disease.select.condition = Weather parameter
+plant.disease.select.conditionParam = Condition
+plant.disease.condition.limit =  Limit
+plant.disease.condition.duration = Duration
+
+temperature = Temperature
+humidity = Humidity
