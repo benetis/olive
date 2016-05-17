@@ -1,6 +1,4 @@
-define([ "../main",
-         "../../../../public/libs/jquery.json2html-master/json2html",
-         "../../../../public/libs/jquery.json2html-master/jquery.json2html"], function(main) {
+define([ "../main"], function(main) {
     require(["jquery"], function($) {
         var conditions = [];
 
@@ -17,14 +15,24 @@ define([ "../main",
             }
             conditions.push(form.serializeArray());
             $(".modal").modal("hide");
-
-            console.log(conditions);
-            var transform =
-            {"<>":"li","html":[
-                {"<>":"i","class":"", "html":"${conditionParam}"}
-            ]};
-
-            $('.condition-list').json2html(conditions,transform);
+            var conditionList = $('.condition-list');
+            conditions.map(function(condition)  {
+                var params = {
+                    1 : "Temperature",
+                    2 : "Humidity"
+                };
+                var condParams = {
+                    1 : ">",
+                    2 : "="
+                };
+                var param = params[condition[1].value];
+                var condParam = condParams[condition[2].value];
+                var cond = condition[3].value;
+                var duration = condition[4].value;
+                //TODO: refactor into something proper, at least this has good performance :D
+                var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
+                conditionList.append(description);
+            });
         });
 
     });
