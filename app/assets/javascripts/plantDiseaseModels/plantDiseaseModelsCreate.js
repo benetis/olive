@@ -1,5 +1,9 @@
-define([ "../main"], function(main) {
+define([ "../main",
+         "../../../../public/libs/jquery.json2html-master/json2html",
+         "../../../../public/libs/jquery.json2html-master/jquery.json2html"], function(main) {
     require(["jquery"], function($) {
+        var conditions = [];
+
         $(".create-plant-disease-condition").click(function(e) {
             e.preventDefault();
             $(".modal").modal("show");
@@ -11,12 +15,17 @@ define([ "../main"], function(main) {
                 form.find('input[type="submit"]').click();
                 return false;
             }
-            // TODO: Add reverse routing
-            // $.post('/plantsDiseaseModels',
-            //     form.serialize(),
-            //     function (data, status, xhr) {
-            //
-            //     });
+            conditions.push(form.serializeArray());
+            $(".modal").modal("hide");
+
+            console.log(conditions);
+            var transform =
+            {"<>":"li","html":[
+                {"<>":"i","class":"", "html":"${conditionParam}"}
+            ]};
+
+            $('.condition-list').json2html(conditions,transform);
         });
+
     });
 });
