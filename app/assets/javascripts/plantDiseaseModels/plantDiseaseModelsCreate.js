@@ -32,6 +32,7 @@ define([ "../main"], function(main) {
                 //TODO: refactor into something proper, at least this has good performance :D
                 var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
                 conditionList.append(description);
+                conditionList.data([param, condParam, cond, duration]);
             });
         });
 
