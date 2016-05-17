@@ -1,6 +1,7 @@
 define([ "../main"], function(main) {
     require(["jquery"], function($) {
         var conditions = [];
+        var lastCondition = {};
 
         $(".create-plant-disease-condition").click(function(e) {
             e.preventDefault();
@@ -13,10 +14,12 @@ define([ "../main"], function(main) {
                 form.find('input[type="submit"]').click();
                 return false;
             }
+            lastCondition = form.serializeArray();
             conditions.push(form.serializeArray());
             $(".modal").modal("hide");
             var conditionList = $('.condition-list');
-            conditions.map(function(condition)  {
+
+            var condition = lastCondition;
                 var params = {
                     1 : "Temperature",
                     2 : "Humidity"
@@ -32,8 +35,7 @@ define([ "../main"], function(main) {
                 //TODO: refactor into something proper, at least this has good performance :D
                 var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
                 conditionList.append(description);
-                conditionList.data([param, condParam, cond, duration]);
-            });
+                conditionList.attr("data-cond"+conditions.length, JSON.stringify(condition));
         });
 
     });
