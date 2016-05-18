@@ -5,7 +5,6 @@
     <div class="col-md-8 col-md-offset-2">
         <h4>@Messages("plant.disease.models.create")</h4>
         @helper.form(action = routes.PlantDiseaseController.submit(), 'class -> "plant-disease-form") {
-            @helper.CSRF.formField
             @b3.text(plantDiseaseModelForm("name"), '_label -> Messages("plant.disease.models.name"), 'class -> "form-control input-lg col-md-10")
             @b3.text(plantDiseaseModelForm("description"), '_label -> Messages("plant.disease.models.description"), 'class -> "form-control input-lg col-md-10")
             @b3.url(plantDiseaseModelForm("modelImageUrl"), '_label -> Messages("plant.disease.models.modelImageUrl"), 'class -> "form-control input-lg col-md-10")
@@ -30,7 +29,6 @@
                 </div>
                 @helper.form(action = routes.PlantDiseaseController.conditionSubmit(), 'class -> "plant-disease-condition-form") {
                     <div class="modal-body">
-                    @helper.CSRF.formField
                     @b3.select( plantDiseaseConditionForm("paramId"), options = Seq("1"->Messages("temperature"), "2"->Messages("humidity")), '_label -> Messages("plant.disease.select.condition"), 'required -> "true")
                     @b3.select( plantDiseaseConditionForm("conditionParam"), options = Seq("1"->">", "2" -> "="), '_label -> Messages("plant.disease.select.conditionParam"), 'required -> "true")
                     @b3.number( plantDiseaseConditionForm("condition"), '_label -> Messages("plant.disease.condition.limit"), 'step -> 5, 'required -> "true")
