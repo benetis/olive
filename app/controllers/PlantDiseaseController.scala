@@ -22,7 +22,7 @@ class PlantDiseaseController @Inject()(
                                         plantDiseaseConditionDao: PlantDiseaseConditionDAO,
                                         val messagesApi: MessagesApi,
                                         silhouette: Silhouette[DefaultEnv]
-) extends Controller with I18nSupport with AuthenticationController {
+) extends Controller with I18nSupport with AuthenticationController  {
 
   def index = silhouette.SecuredAction.async { implicit request =>
     plantDiseaseModelDao.all().map {
@@ -34,7 +34,7 @@ class PlantDiseaseController @Inject()(
                                                    PlantDiseaseConditionForm.form)))
   }
 
-  def submit = silhouette.SecuredAction.async { implicit request =>
+  def submit = Action.async { implicit request =>
     request.body.asJson.map { json => json.validate[PlantDiseaseModel] match {
       case JsSuccess(s, _) =>
         val model = models.PlantDiseaseModel(name = s.name)
