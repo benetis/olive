@@ -35,25 +35,29 @@ class PlantDiseaseController @Inject()(
   }
 
   def submit = silhouette.SecuredAction.async { implicit request =>
-    PlantDiseaseModelForm.form.bindFromRequest.fold(
-      form => {
-        Future.successful(Ok(Json.toJson(form.errorsAsJson)))
-      },
-      data => {
-        Future.successful(Ok(data.toString))
-      }
-    )
+    request.body.asJson.map { json => json.validate[PlantDiseaseModel] match {
+      case JsSuccess(s, _) =>
+        val model = models.PlantDiseaseModel(name = s.name)
+        plantDiseaseModelDao.insertId(model).map(id => {
+          Ok(Json.obj("status" -> "OK"))
+        })
+      case err@JsError(_) => Future.successful(BadRequest(err.toString))
+    }
+    } match {
+      case Some(a) => a
+      case None => Future.successful(BadRequest("json error"))
+    }
   }
 
-  def conditionSubmit = silhouette.SecuredAction.async { implicit request =>
-    PlantDiseaseModelForm.form.bindFromRequest.fold(
-      form => {
-        Future.successful(Ok(Json.toJson(form.errorsAsJson)))
-      },
-      data => {
-        Future.successful(Ok(data.toString))
-      }
-    )
+  def conditionSubmit() = Action.async { implicit request =>
+    request.body.asJson.map { json => json.validate[PlantDiseaseCondition] match {
+      case JsSuccess(s, _) => plantDiseaseConditionDao.insert(s).map(_ => Ok(Json.obj("status" -> "OK")))
+      case err@JsError(_) => Future.successful(BadRequest(err.toString))
+    }
+    } match {
+      case Some(a) => a
+      case None => Future.successful(BadRequest("json error"))
+    }
   }
 
 

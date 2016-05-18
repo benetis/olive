@@ -2,10 +2,10 @@ package models
 
 import play.api.libs.json.Json
 
-case class PlantDiseaseModel(id: Option[Long],
+case class PlantDiseaseModel(id: Option[Long] = None,
                              name: String,
-                             description : Option[String],
-                             modelImageUrl: Option[String]
+                             description : Option[String] = None,
+                             modelImageUrl: Option[String] = None
                             ){
 }
 

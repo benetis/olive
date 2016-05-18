@@ -1,5 +1,7 @@
 package models
 
+import play.api.libs.json.Json
+
 case class PlantDiseaseCondition(id: Option[Long],
                                  paramId: Int,
                                  modelId: Int,
@@ -7,4 +9,9 @@ case class PlantDiseaseCondition(id: Option[Long],
                                  conditionParam: Int,
                                  duration: Int
                             ){
+}
+
+object PlantDiseaseCondition {
+  implicit val plantModelsReads = Json.reads[PlantDiseaseCondition]
+  implicit val plantModelsWrites = Json.writes[PlantDiseaseCondition]
 }
