@@ -9,8 +9,15 @@ define([ "../main"], function(main) {
                 modelForm.find('input[type="submit"]').click();
                 return false;
             }
-            var modelFormJson = modelForm.serializeArray();
-            console.log(modelFormJson);
+            $.ajax({
+                url: '/plantsDiseaseModels',
+                data: modelForm.serialize(),
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    console.log(data);
+                }
+            });
         });
 
         $(".create-plant-disease-condition").click(function(e) {
