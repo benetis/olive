@@ -39,7 +39,7 @@ class PlantDiseaseController @Inject()(
       case JsSuccess(s, _) =>
         val model = models.PlantDiseaseModel(name = s.name)
         plantDiseaseModelDao.insertId(model).map(id => {
-          Ok(Json.obj("status" -> "OK"))
+          Ok(Json.obj("status" -> "OK", "id" -> id))
         })
       case err@JsError(_) => Future.successful(BadRequest(err.toString))
     }
