@@ -34,7 +34,7 @@ class PlantDiseaseController @Inject()(
                                                    PlantDiseaseConditionForm.form)))
   }
 
-  def submit = Action.async { implicit request =>
+  def submit = silhouette.SecuredAction.async { implicit request =>
     request.body.asJson.map { json => json.validate[PlantDiseaseModel] match {
       case JsSuccess(s, _) =>
         val model = models.PlantDiseaseModel(name = s.name)
