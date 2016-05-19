@@ -26,9 +26,11 @@ define([ "../main"], function(main) {
                 modelForm.find('input[type="submit"]').click();
                 return false;
             }
+            var diseaseModel = modelForm.serializeObject();
+            diseaseModel.conditions = conditions;
             $.ajax({
                 url: '/plantsDiseaseModels',
-                data: JSON.stringify(modelForm.serializeObject()),
+                data: JSON.stringify(diseaseModel),
                 type: "post",
                 contentType: "application/json",
                 dataType: "json",
@@ -50,7 +52,7 @@ define([ "../main"], function(main) {
                 return false;
             }
             lastCondition = conditionForm.serializeArray();
-            conditions.push(conditionForm.serializeArray());
+            conditions.push(conditionForm.serializeObject());
             $(".modal").modal("hide");
             var conditionList = $('.condition-list');
 
@@ -63,10 +65,10 @@ define([ "../main"], function(main) {
                 1 : ">",
                 2 : "="
             };
-            var param = params[condition[1].value];
-            var condParam = condParams[condition[2].value];
-            var cond = condition[3].value;
-            var duration = condition[4].value;
+            var param = params[condition[0].value];
+            var condParam = condParams[condition[1].value];
+            var cond = condition[2].value;
+            var duration = condition[3].value;
             //TODO: refactor into something proper, at least this has good performance :D
             var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
             conditionList.append(description);
