@@ -51,12 +51,13 @@ define([ "../main"], function(main) {
                 conditionForm.find('input[type="submit"]').click();
                 return false;
             }
-            lastCondition = conditionForm.serializeArray();
+            lastCondition = conditionForm.serializeObject();
             conditions.push(conditionForm.serializeObject());
             $(".modal").modal("hide");
             var conditionList = $('.condition-list');
 
             var condition = lastCondition;
+            console.log(condition);
             var params = {
                 1 : "Temperature",
                 2 : "Humidity"
@@ -65,10 +66,10 @@ define([ "../main"], function(main) {
                 1 : ">",
                 2 : "="
             };
-            var param = params[condition[0].value];
-            var condParam = condParams[condition[1].value];
-            var cond = condition[2].value;
-            var duration = condition[3].value;
+            var param = params[condition.paramId];
+            var condParam = condParams[condition.conditionParam];
+            var cond = condition.condition;
+            var duration = condition.duration;
             //TODO: refactor into something proper, at least this has good performance :D
             var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
             conditionList.append(description);

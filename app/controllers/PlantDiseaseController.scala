@@ -35,10 +35,22 @@ class PlantDiseaseController @Inject()(
   }
 
   def submit = silhouette.SecuredAction.async { implicit request =>
-    request.body.asJson.map { json => json.validate[PlantDiseaseModel] match {
+    val jsonRequest = request.body.asJson
+    //Callback hell :o TODO: fix this
+    jsonRequest.map { json => json.validate[PlantDiseaseModel] match {
       case JsSuccess(s, _) =>
         val model = models.PlantDiseaseModel(name = s.name)
         plantDiseaseModelDao.insertId(model).map(id => {
+          jsonRequest.map { jsonCond =>
+            (jsonCond \ "conditions").validate[PlantDiseaseCondition] match {
+              case JsSuccess(c, _) => {
+                val condition: PlantDiseaseCondition = models.PlantDiseaseCondition(modelId = id, paramId = c.paramId,
+                                                             condition=c.condition, conditionParam = c.conditionParam, duration = c.duration)
+                plantDiseaseConditionDao.insert(condition)
+              }
+              case err@JsError(_) => Future.successful(BadRequest(err.toString))
+            }
+          }
           Ok(Json.obj("status" -> "OK", "id" -> id))
         })
       case err@JsError(_) => Future.successful(BadRequest(err.toString))

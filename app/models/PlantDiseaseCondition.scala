@@ -2,9 +2,9 @@ package models
 
 import play.api.libs.json.Json
 
-case class PlantDiseaseCondition(id: Option[Long],
+case class PlantDiseaseCondition(id: Option[Long] = None,
                                  paramId: Int,
-                                 modelId: Int,
+                                 modelId: Long,
                                  condition: Float,
                                  conditionParam: Int,
                                  duration: Int

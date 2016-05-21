@@ -23,7 +23,7 @@ class PlantDiseaseConditionDAO @Inject()(protected val dbConfigProvider: Databas
   private class PlantDiseaseConditionTable(tag: Tag) extends Table[PlantDiseaseCondition](tag, "PLANT_DISEASE_CONDITION") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def paramId = column[Int]("param_id")
-    def modelId = column[Int]("model_id")
+    def modelId = column[Long]("model_id")
     def condition = column[Float]("condition")
     def conditionParam = column[Int]("condition_param")
     def duration = column[Int]("duration")
