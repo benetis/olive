@@ -4,7 +4,7 @@ import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
 import forms.{PlantDiseaseConditionForm, PlantDiseaseModelForm, SignInForm}
-import models.{PlantDiseaseCondition, PlantDiseaseModel, Sample}
+import models.{PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition, Sample}
 import models.Sample.tempAndClockedFormat
 import models.daos.{PlantDiseaseConditionDAO, PlantDiseaseModelDAO, SampleDAO}
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
@@ -37,23 +37,23 @@ class PlantDiseaseController @Inject()(
   def submit = silhouette.SecuredAction.async { implicit request =>
     val jsonRequest = request.body.asJson
     //Callback hell :o TODO: fix this
-    jsonRequest.map { json => json.validate[PlantDiseaseModel] match {
+    jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
       case JsSuccess(s, _) =>
         val model = models.PlantDiseaseModel(name = s.name)
         plantDiseaseModelDao.insertId(model).map(id => {
-          jsonRequest.map { jsonCond =>
-            (jsonCond \ "conditions").validate[PlantDiseaseCondition] match {
-              case JsSuccess(c, _) => {
-                val condition: PlantDiseaseCondition = models.PlantDiseaseCondition(modelId = id, paramId = c.paramId,
-                                                             condition=c.condition, conditionParam = c.conditionParam, duration = c.duration)
-                plantDiseaseConditionDao.insert(condition)
-              }
-              case err@JsError(_) => Future.successful(BadRequest(err.toString))
-            }
-          }
-          Ok(Json.obj("status" -> "OK", "id" -> id))
+//          jsonRequest.map { jsonCond =>
+//            (jsonCond \ "conditions").validate[Seq[PlantDiseaseCondition]] match {
+//              case JsSuccess(conditions, _) =>
+//                conditions.map(c => {
+//                 plantDiseaseConditionDao.insert(models.PlantDiseaseCondition(modelId = id, paramId = c.paramId,
+//                   condition=c.condition, conditionParam = c.conditionParam, duration = c.duration))
+//               })
+//              case err@JsError(_) => Future.successful(BadRequest(err.toString))
+//            }
+//          }
+          Ok(Json.obj("status" -> "OK", "id" -> id, "conditions" -> s.conditions))
         })
-      case err@JsError(_) => Future.successful(BadRequest(err.toString))
+      case err@JsError(_) => Future.successful(BadRequest(JsError.toJson(err)))
     }
     } match {
       case Some(a) => a

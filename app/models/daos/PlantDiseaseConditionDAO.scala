@@ -28,7 +28,7 @@ class PlantDiseaseConditionDAO @Inject()(protected val dbConfigProvider: Databas
     def conditionParam = column[Int]("condition_param")
     def duration = column[Int]("duration")
 
-    def * = (id.?, paramId, modelId, condition, conditionParam, duration ) <> ((PlantDiseaseCondition.apply _).tupled, PlantDiseaseCondition.unapply _)
+    def * = (id.?, paramId, modelId.?, condition, conditionParam, duration ) <> ((PlantDiseaseCondition.apply _).tupled, PlantDiseaseCondition.unapply _)
   }
 
   def createTable() = {
