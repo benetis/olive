@@ -39,8 +39,7 @@ class PlantDiseaseController @Inject()(
     //Callback hell :o TODO: fix this
     jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
       case JsSuccess(s, _) =>
-        val model = models.PlantDiseaseModel(name = s.name)
-        plantDiseaseModelDao.insertId(model).map(id => {
+        plantDiseaseModelDao.insertId(PlantDiseaseModel(name = s.name)).map(id => {
 //          jsonRequest.map { jsonCond =>
 //            (jsonCond \ "conditions").validate[Seq[PlantDiseaseCondition]] match {
 //              case JsSuccess(conditions, _) =>
@@ -51,6 +50,10 @@ class PlantDiseaseController @Inject()(
 //              case err@JsError(_) => Future.successful(BadRequest(err.toString))
 //            }
 //          }
+          s.conditions.map(seq => seq.map(c => {
+            plantDiseaseConditionDao.insert(PlantDiseaseCondition(modelId = Some(id), paramId = c.paramId,
+              condition=c.condition, conditionParam = c.conditionParam, duration = c.duration))
+          }))
           Ok(Json.obj("status" -> "OK", "id" -> id, "conditions" -> s.conditions))
         })
       case err@JsError(_) => Future.successful(BadRequest(JsError.toJson(err)))
