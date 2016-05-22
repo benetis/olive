@@ -13,4 +13,7 @@ Software to store, aggregate weather data and display it to farmers.
 -Dsbt.jse.engineType=Node
 
 
+
 Copyright (c) 2016 Zygimantas Benetis (@benetisz).
+
+![Image of Bachelor](https://i.imgur.com/Z6XT0Cd.png)
