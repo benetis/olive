@@ -57,3 +57,5 @@ plant.disease.condition.duration = Duration
 
 temperature = Temperature
 humidity = Humidity
+
+weatherNow.title = Weather now

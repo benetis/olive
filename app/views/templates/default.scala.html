@@ -15,6 +15,9 @@
                     <li class="@("active".when(tab == "samples"))">
                         <a href="@routes.SampleController.index">@Messages("samples.title")</a>
                     </li>
+                <li class="@("active".when(tab == "weatherNow"))">
+                        <a href="@routes.SampleController.index">@Messages("weatherNow.title")</a>
+                    </li>
             }
     }
     </ul>
