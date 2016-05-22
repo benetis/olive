@@ -32,6 +32,15 @@ define([ "../main" ], function(main) {
                             label: 'Wind speed m/s',
                             yAxisID: "y-axis-3",
                             data: data.windSpeed
+                        },
+                        {
+                            type: 'line',
+                            fill: false,
+                            backgroundColor: "#304269",
+                            borderColor: "#91BED4",
+                            label: 'Rain level mm',
+                            yAxisID: "y-axis-4",
+                            data: data.rainLevel
                         }
                     ]
                 },
@@ -74,7 +83,20 @@ define([ "../main" ], function(main) {
                                 display: true,
                                 labelString: 'Wind speed m/s'
                             }
-                        }]
+                        }, {
+                            type: "linear",
+                            display: true,
+                            position: "right",
+                            id: "y-axis-4",
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Rain level mm'
+                            }
+                        }
+                        ]
                     }
                 }
             });
