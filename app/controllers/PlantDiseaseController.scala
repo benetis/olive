@@ -26,7 +26,7 @@ class PlantDiseaseController @Inject()(
 
   def index = silhouette.SecuredAction.async { implicit request =>
     plantDiseaseModelDao.all().map {
-      model: Seq[PlantDiseaseModel] => Ok(views.html.plant_models(PlantDiseaseModelForm.form)) }
+      models: Seq[PlantDiseaseModel] => Ok(views.html.plant_models(models)) }
   }
 
   def createModel = silhouette.SecuredAction.async { implicit request =>
@@ -64,6 +64,5 @@ class PlantDiseaseController @Inject()(
       case None => Future.successful(BadRequest("json error"))
     }
   }
-
 
 }

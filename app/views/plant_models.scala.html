@@ -1,4 +1,4 @@
-@(plantDiseaseModelForm: Form[forms.PlantDiseaseModelForm.Data])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@(plantDiseaseModels: Seq[PlantDiseaseModel])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 @import b3.inline.fieldConstructor
 
 @templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
@@ -6,18 +6,20 @@
         <div class="row data">
             <div class="col-md-12">
                 <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="material-icons">folder</i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">15m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
+                    @for(diseaseModel <- plantDiseaseModels) {
+                        <div class="list-group-item">
+                            <div class="row-action-primary">
+                                <i class="material-icons">local_florist</i>
+                            </div>
+                            <div class="row-content">
+                                <div class="least-content">15m</div>
+                                <h4 class="list-group-item-heading">@diseaseModel.name</h4>
 
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-group-separator"></div>
+                        <div class="list-group-separator"></div>
+                    }
                 </div>
                 <a href="@routes.PlantDiseaseController.createModel()" class="btn btn-success btn-fab pull-right create-plant-disease" ><i class="material-icons">grade</i></a>
             </div>
