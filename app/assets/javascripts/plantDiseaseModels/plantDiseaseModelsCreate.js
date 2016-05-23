@@ -42,8 +42,7 @@ define([ "../main"], function(main) {
                 contentType: "application/json",
                 dataType: "json"
             }).done(function(response) {
-                console.log("works");
-                // window.location.href="/plantsDiseaseModels";
+                window.location.href="/plantsDiseaseModels";
             });
         });
 
