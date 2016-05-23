@@ -3,17 +3,16 @@ define([ "../main"], function(main) {
         var conditions = [];
         var lastCondition = {};
 
-        $.fn.serializeObject = function()
+        $.fn.serializeObject = function(convertToNumeric)
         {
             function isNumeric(num){
                 return !isNaN(num);
             }
-
             var o = {};
             var a = this.serializeArray();
             $.each(a, function() {
                 var value = this.value;
-                if(isNumeric(this.value)) {
+                if(isNumeric(this.value) && convertToNumeric) {
                     value = parseFloat(this.value);
                 }
                 if (o[this.name] !== undefined) {
@@ -44,7 +43,7 @@ define([ "../main"], function(main) {
                 dataType: "json"
             }).done(function(response) {
                 console.log("works");
-                window.location.href="/plantsDiseaseModels";
+                // window.location.href="/plantsDiseaseModels";
             });
         });
 
@@ -59,8 +58,8 @@ define([ "../main"], function(main) {
                 conditionForm.find('input[type="submit"]').click();
                 return false;
             }
-            lastCondition = conditionForm.serializeObject();
-            conditions.push(conditionForm.serializeObject());
+            lastCondition = conditionForm.serializeObject(true);
+            conditions.push(conditionForm.serializeObject(true));
             $(".modal").modal("hide");
             var conditionList = $('.condition-list');
 
