@@ -18,7 +18,9 @@ class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseCon
 
   def insert(plantDiseaseModel: PlantDiseaseModel): Future[Unit] = db.run(plantDiseaseModels += plantDiseaseModel).map { _ => () }
 
-  def insertId(plantDiseaseModel: PlantDiseaseModel): Future[Long] = db.run((plantDiseaseModels returning plantDiseaseModels.map(_.id)) += plantDiseaseModel)
+  def insertId(plantDiseaseModel: PlantDiseaseModel): Future[Long] = {
+    db.run((plantDiseaseModels returning plantDiseaseModels.map(_.id)) += plantDiseaseModel)
+  }
 
   private class PlantDiseaseModelTable(tag: Tag) extends Table[PlantDiseaseModel](tag, "PLANT_DISEASE_MODEL") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)

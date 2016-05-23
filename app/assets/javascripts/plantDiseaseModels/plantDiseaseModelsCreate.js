@@ -5,16 +5,24 @@ define([ "../main"], function(main) {
 
         $.fn.serializeObject = function()
         {
+            function isNumeric(num){
+                return !isNaN(num);
+            }
+
             var o = {};
             var a = this.serializeArray();
             $.each(a, function() {
+                var value = this.value;
+                if(isNumeric(this.value)) {
+                    value = parseFloat(this.value);
+                }
                 if (o[this.name] !== undefined) {
                     if (!o[this.name].push) {
                         o[this.name] = [o[this.name]];
                     }
-                    o[this.name].push(parseFloat(this.value) || '');
+                    o[this.name].push(value || '');
                 } else {
-                    o[this.name] = parseFloat(this.value) || '';
+                    o[this.name] = value || '';
                 }
             });
             return o;
@@ -27,6 +35,7 @@ define([ "../main"], function(main) {
                 return false;
             }
             var diseaseModel = modelForm.serializeObject();
+            console.log(diseaseModel);
             diseaseModel.conditions = conditions;
             $.ajax({
                 url: '/plantsDiseaseModels',

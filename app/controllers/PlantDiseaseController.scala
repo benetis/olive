@@ -49,7 +49,7 @@ class PlantDiseaseController @Inject()(
       case err@JsError(_) => Future.successful(BadRequest(JsError.toJson(err)))
     }
     } match {
-      case Some(a) => a
+      case Some(a) => Future.successful(Ok("OK"))
       case None => Future.successful(BadRequest("json error"))
     }
   }
