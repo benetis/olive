@@ -39,6 +39,7 @@ class PlantDiseaseController @Inject()(
     //Callback hell :o TODO: fix this
     jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
       case JsSuccess(s, _) =>
+        println(s)
         plantDiseaseModelDao.insertId(PlantDiseaseModel(
           name = s.name,
           description = s.description,

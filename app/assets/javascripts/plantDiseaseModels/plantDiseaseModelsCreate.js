@@ -3,7 +3,7 @@ define([ "../main"], function(main) {
         var conditions = [];
         var lastCondition = {};
 
-        $.fn.serializeObject = function(convertToNumeric)
+        $.fn.serializeObject = function()
         {
             function isNumeric(num){
                 return !isNaN(num);
@@ -12,16 +12,16 @@ define([ "../main"], function(main) {
             var a = this.serializeArray();
             $.each(a, function() {
                 var value = this.value;
-                if(isNumeric(this.value) && convertToNumeric) {
+                if(isNumeric(this.value)) {
                     value = parseFloat(this.value);
                 }
                 if (o[this.name] !== undefined) {
                     if (!o[this.name].push) {
                         o[this.name] = [o[this.name]];
                     }
-                    o[this.name].push(value || '');
+                    o[this.name].push(value || null);
                 } else {
-                    o[this.name] = value || '';
+                    o[this.name] = value || null;
                 }
             });
             return o;
@@ -57,8 +57,8 @@ define([ "../main"], function(main) {
                 conditionForm.find('input[type="submit"]').click();
                 return false;
             }
-            lastCondition = conditionForm.serializeObject(true);
-            conditions.push(conditionForm.serializeObject(true));
+            lastCondition = conditionForm.serializeObject();
+            conditions.push(conditionForm.serializeObject());
             $(".modal").modal("hide");
             var conditionList = $('.condition-list');
 

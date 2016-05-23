@@ -13,9 +13,17 @@
                             </div>
                             <div class="row-content">
                                 <div class="least-content">15m</div>
-                                <h4 class="list-group-item-heading">@diseaseModel.name</h4>
+                                <h4 class="list-group-item-heading">
+                                    @diseaseModel.name
+                                </h4>
 
-                                <p class="list-group-item-text">@diseaseModel.description</p>
+                                <p class="list-group-item-text">
+                                    @if(diseaseModel.description.isEmpty) {
+                                        @messages("plant.disease.models.description.empty")
+                                    } else {
+                                        @diseaseModel.description
+                                    }
+                                </p>
                             </div>
                         </div>
                         <div class="list-group-separator"></div>
