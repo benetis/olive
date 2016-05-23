@@ -38,7 +38,8 @@ object Sample {
           "temperature" -> JsString(sample.temperature.toString),
           "windSpeed" -> JsString(sample.windSpeed.toString),
           "humidity" -> JsString(sample.humidity.toString),
-          "clocked" -> JsString(format.format(sample.clocked))
+          "clocked" -> JsString(format.format(sample.clocked)),
+          "rainLevel" -> JsString(format.format(sample.rainLevel))
         )
       })
       JsArray(seq)

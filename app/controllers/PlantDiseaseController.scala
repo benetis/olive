@@ -40,16 +40,6 @@ class PlantDiseaseController @Inject()(
     jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
       case JsSuccess(s, _) =>
         plantDiseaseModelDao.insertId(PlantDiseaseModel(name = s.name)).map(id => {
-//          jsonRequest.map { jsonCond =>
-//            (jsonCond \ "conditions").validate[Seq[PlantDiseaseCondition]] match {
-//              case JsSuccess(conditions, _) =>
-//                conditions.map(c => {
-//                 plantDiseaseConditionDao.insert(models.PlantDiseaseCondition(modelId = id, paramId = c.paramId,
-//                   condition=c.condition, conditionParam = c.conditionParam, duration = c.duration))
-//               })
-//              case err@JsError(_) => Future.successful(BadRequest(err.toString))
-//            }
-//          }
           s.conditions.map(seq => seq.map(c => {
             plantDiseaseConditionDao.insert(PlantDiseaseCondition(modelId = Some(id), paramId = c.paramId,
               condition=c.condition, conditionParam = c.conditionParam, duration = c.duration))
