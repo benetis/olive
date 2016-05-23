@@ -39,7 +39,7 @@ class PlantDiseaseController @Inject()(
     //Callback hell :o TODO: fix this
     jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
       case JsSuccess(s, _) =>
-        plantDiseaseModelDao.insertId(PlantDiseaseModel(name = s.name)).map(id => {
+        plantDiseaseModelDao.insertId(PlantDiseaseModel(name = s.name, description = s.description, modelImageUrl = s.modelImageUrl)).map(id => {
           s.conditions.map(seq => seq.map(c => {
             plantDiseaseConditionDao.insert(PlantDiseaseCondition(modelId = Some(id), paramId = c.paramId,
               condition=c.condition, conditionParam = c.conditionParam, duration = c.duration))
@@ -49,7 +49,7 @@ class PlantDiseaseController @Inject()(
       case err@JsError(_) => Future.successful(BadRequest(JsError.toJson(err)))
     }
     } match {
-      case Some(a) => Future.successful(Ok("OK"))
+      case Some(a) => Future.successful(Ok(Json.obj("status" -> "OK")))
       case None => Future.successful(BadRequest("json error"))
     }
   }

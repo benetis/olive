@@ -35,17 +35,16 @@ define([ "../main"], function(main) {
                 return false;
             }
             var diseaseModel = modelForm.serializeObject();
-            console.log(diseaseModel);
             diseaseModel.conditions = conditions;
             $.ajax({
                 url: '/plantsDiseaseModels',
                 data: JSON.stringify(diseaseModel),
                 type: "post",
                 contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                }
+                dataType: "json"
+            }).done(function(response) {
+                console.log("works");
+                window.location.href="/plantsDiseaseModels";
             });
         });
 
@@ -66,7 +65,6 @@ define([ "../main"], function(main) {
             var conditionList = $('.condition-list');
 
             var condition = lastCondition;
-            console.log(condition);
             var params = {
                 1 : "Temperature",
                 2 : "Humidity"

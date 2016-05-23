@@ -50,7 +50,8 @@ class ApplicationController @Inject() (
   def jsRoutes = Action { implicit request =>
     Ok(
       JavaScriptReverseRouter("jsRoutes")(
-        routes.javascript.SampleController.getRange
+        routes.javascript.PlantDiseaseController.index,
+        routes.javascript.PlantDiseaseController.index
     )).as("text/javascript")
   }
 }
