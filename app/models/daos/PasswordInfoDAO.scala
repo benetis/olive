@@ -46,7 +46,6 @@ class PasswordInfoDAO @Inject() (protected val dbConfigProvider: DatabaseConfigP
    * @return The retrieved auth info or None if no auth info could be retrieved for the given login info.
    */
   def find(loginInfo: LoginInfo): Future[Option[PasswordInfo]] = {
-    Console.println("please call me")
     db.run(passwordInfoQuery(loginInfo).result.headOption).map { dbPasswordInfoOption =>
       dbPasswordInfoOption.map(dbPasswordInfo => 
         PasswordInfo(dbPasswordInfo.hasher, dbPasswordInfo.password, dbPasswordInfo.salt))
