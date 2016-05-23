@@ -7,16 +7,17 @@
             <div class="col-md-12">
                 <div class="list-group">
                     @for(diseaseModel <- plantDiseaseModels) {
-                        <div class="list-group-item">
-                            <div class="row-action-primary">
-                                <i class="material-icons">local_florist</i>
+                        <div class="list-group-item plant-disease-model">
+                            <div class="plant-disease-icon-container">
+                                <div class="row-action-primary plant-disease-icon">
+                                    <i class="material-icons">local_florist</i>
+                                </div>
                             </div>
-                            <div class="row-content">
+                            <div class="row-content plant-disease-content">
                                 <div class="least-content">15m</div>
                                 <h4 class="list-group-item-heading">
                                     @diseaseModel.name
                                 </h4>
-
                                 <p class="list-group-item-text">
                                     @if(diseaseModel.description.isEmpty) {
                                         @messages("plant.disease.models.description.empty")
