@@ -19,7 +19,14 @@
                                 </h4>
                                 <div class="plant-disease-conditions">
                                     @for(condition <- diseaseConditions) {
-                                        <a href="" class="btn">@PlantDiseaseCondition.getConditionParamById(condition.conditionParam)</a>
+                                        <i class="btn btn-sm">
+                                            @PlantDiseaseCondition.getWeatherParameterById(condition.paramId, messages)
+                                            @PlantDiseaseCondition.getConditionParamById(condition.conditionParam)
+                                            @condition.condition
+                                            @Messages("for at least")
+                                            @condition.duration
+                                            @Messages("hours")
+                                        </i>
                                     }
                                 </div>
                                 <p class="list-group-item-text">

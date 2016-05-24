@@ -31,10 +31,6 @@ implicit val plantDiseaseConditionReads : Reads[PlantDiseaseCondition] = (
     "3" -> "<"
   )
 
-  def getConditionParamById(id: Int): String = {
-    conditionParams().filter(condParam => condParam._1 == id.toString).head._2
-  }
-
   /**
     *
     * @param messages Messages, passing messages object to translate the language
@@ -47,4 +43,13 @@ implicit val plantDiseaseConditionReads : Reads[PlantDiseaseCondition] = (
     "4"-> messages("wind.speed"),
     "5"-> messages("rain.level")
   )
+
+  def getConditionParamById(id: Int): String = {
+    conditionParams().filter(condParam => condParam._1 == id.toString).head._2
+  }
+
+  def getWeatherParameterById(id: Int, messages: Messages): String = {
+    weatherParameters(messages).filter(weatherParam => weatherParam._1 == id.toString).head._2
+  }
+
 }
