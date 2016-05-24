@@ -4,7 +4,7 @@
 @templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
     <div class="sample col-md-8 col-md-offset-2">
         <div class="row data">
-            <div class="col-md-12">
+            <div >
                 <div class="list-group">
                     @for((diseaseModel, diseaseConditions) <- plantDiseaseModels) {
                         <div class="list-group-item plant-disease-model">
@@ -43,7 +43,9 @@
                         <div class="list-group-separator"></div>
                     }
                 </div>
-                <a href="@routes.PlantDiseaseController.createModel()" class="btn btn-success btn-fab pull-right create-plant-disease" ><i class="material-icons">grade</i></a>
+                <span class="create-plant-disease-button-container pull-right">
+                    <a href="@routes.PlantDiseaseController.createModel()" class="btn btn-success btn-fab create-plant-disease" ><i class="material-icons">grade</i></a>
+                </span>
             </div>
         </div>
     </div>
