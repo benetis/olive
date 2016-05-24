@@ -1,4 +1,4 @@
-define([ "../main"], function(main) {
+define([ "../main", "../i18n!nls/translations"], function(main, translations) {
     require(["jquery"], function($) {
         var conditions = [];
         var lastCondition = {};
@@ -26,7 +26,7 @@ define([ "../main"], function(main) {
             });
             return o;
         };
-
+        
         $(".save-plant-disease").click(function(e) {
             var modelForm = $(".plant-disease-form");
             if (!modelForm[0].checkValidity()) {
