@@ -19,7 +19,7 @@
                                 </h4>
                                 <div class="plant-disease-conditions">
                                     @for(condition <- diseaseConditions) {
-                                        <a href="" class="btn">@condition.conditionParam</a>
+                                        <a href="" class="btn">@PlantDiseaseCondition.getConditionParamById(condition.conditionParam)</a>
                                     }
                                 </div>
                                 <p class="list-group-item-text">

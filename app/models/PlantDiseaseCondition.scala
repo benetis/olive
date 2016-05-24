@@ -31,6 +31,10 @@ implicit val plantDiseaseConditionReads : Reads[PlantDiseaseCondition] = (
     "3" -> "<"
   )
 
+  def getConditionParamById(id: Int): String = {
+    conditionParams().filter(condParam => condParam._1 == id.toString).head._2
+  }
+
   /**
     *
     * @param messages Messages, passing messages object to translate the language
