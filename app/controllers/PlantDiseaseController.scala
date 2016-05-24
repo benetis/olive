@@ -1,5 +1,6 @@
 package controllers
 
+import java.util.concurrent.TimeUnit
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
@@ -13,7 +14,8 @@ import play.api.libs.json._
 import play.api.mvc._
 import utils.auth.{AuthenticationController, DefaultEnv}
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
 
 @Singleton
@@ -33,7 +35,8 @@ class PlantDiseaseController @Inject()(
           } yield (plantDiseaseModel, conditions)
         }))
       }
-    }.map(_ => Ok(views.html.plant_models(_)))
+        //change to proper handling w/o await
+    }.map(modelsWithCond => Ok(views.html.plant_models(Await.result(modelsWithCond, Duration(1, TimeUnit.SECONDS)))))
   }
 
   def createModel = silhouette.SecuredAction.async { implicit request =>
