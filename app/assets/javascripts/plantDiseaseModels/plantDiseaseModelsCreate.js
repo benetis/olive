@@ -26,7 +26,7 @@ define([ "../main", "../i18n!nls/translations"], function(main, translations) {
             });
             return o;
         };
-        
+
         $(".save-plant-disease").click(function(e) {
             var modelForm = $(".plant-disease-form");
             if (!modelForm[0].checkValidity()) {
@@ -65,11 +65,15 @@ define([ "../main", "../i18n!nls/translations"], function(main, translations) {
             var condition = lastCondition;
             var params = {
                 1 : "Temperature",
-                2 : "Humidity"
+                2 : "Humidity",
+                3 : "Wind direction",
+                4 : "Wind speed",
+                5 : "Rain level"
             };
             var condParams = {
                 1 : ">",
-                2 : "="
+                2 : "=",
+                3 : "<"
             };
             var param = params[condition.paramId];
             var condParam = condParams[condition.conditionParam];
