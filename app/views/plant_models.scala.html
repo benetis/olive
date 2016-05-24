@@ -19,7 +19,7 @@
                                 </h4>
                                 <div class="plant-disease-conditions">
                                     @for(condition <- diseaseConditions) {
-                                        <div class="label label-default conditions-info">
+                                        <div class="conditions-info">
                                             @PlantDiseaseCondition.getWeatherParameterById(condition.paramId, messages)
                                             @PlantDiseaseCondition.getConditionParamById(condition.conditionParam)
                                             @condition.condition
