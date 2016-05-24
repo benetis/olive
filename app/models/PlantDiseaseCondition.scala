@@ -13,7 +13,6 @@ case class PlantDiseaseCondition(id: Option[Long] = None,
 }
 
 object PlantDiseaseCondition {
-//  implicit val plantModelsReads = Json.reads[PlantDiseaseCondition]
 implicit val plantDiseaseConditionReads : Reads[PlantDiseaseCondition] = (
     (JsPath \ "id").readNullable[Long] and
     (JsPath \ "paramId").read[Int] and
