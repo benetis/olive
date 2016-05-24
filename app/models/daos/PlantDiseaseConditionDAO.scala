@@ -9,7 +9,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
 import slick.profile.SqlProfile.ColumnOption.SqlType
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 
 class PlantDiseaseConditionDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] {
   import driver.api._
@@ -17,6 +17,9 @@ class PlantDiseaseConditionDAO @Inject()(protected val dbConfigProvider: Databas
   private val plantDiseaseConditions = TableQuery[PlantDiseaseConditionTable]
 
   def all(): Future[Seq[PlantDiseaseCondition]] = db.run(plantDiseaseConditions.result)
+
+  def findByModelId(modelId: Option[Long]): Future[Seq[PlantDiseaseCondition]] =
+    db.run(plantDiseaseConditions.filter(_.modelId === modelId).result)
 
   def insert(plantDiseaseCondition: PlantDiseaseCondition): Future[Unit] = db.run(plantDiseaseConditions += plantDiseaseCondition).map { _ => () }
 

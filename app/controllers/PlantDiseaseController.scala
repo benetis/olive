@@ -26,7 +26,14 @@ class PlantDiseaseController @Inject()(
 
   def index = silhouette.SecuredAction.async { implicit request =>
     plantDiseaseModelDao.all().map {
-      models: Seq[PlantDiseaseModel] => Ok(views.html.plant_models(models)) }
+      models: Seq[PlantDiseaseModel] => {
+        Future.sequence(models.map(plantDiseaseModel => {
+          for {
+            conditions <- plantDiseaseConditionDao.findByModelId(plantDiseaseModel.id)
+          } yield (plantDiseaseModel, conditions)
+        }))
+      }
+    }.map(_ => Ok(views.html.plant_models(_)))
   }
 
   def createModel = silhouette.SecuredAction.async { implicit request =>

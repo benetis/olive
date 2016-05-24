@@ -1,4 +1,4 @@
-@(plantDiseaseModels: Seq[PlantDiseaseModel])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@(plantDiseaseModels: Seq[(PlantDiseaseModel, Seq[PlantDiseaseCondition])])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 @import b3.inline.fieldConstructor
 
 @templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
@@ -6,7 +6,7 @@
         <div class="row data">
             <div class="col-md-12">
                 <div class="list-group">
-                    @for(diseaseModel <- plantDiseaseModels) {
+                    @for((diseaseModel, diseaseConditions) <- plantDiseaseModels) {
                         <div class="list-group-item plant-disease-model">
                             <div class="plant-disease-icon-container">
                                 <div class="row-action-primary plant-disease-icon">
