@@ -57,5 +57,8 @@ plant.disease.condition.duration = Duration
 plant.disease.models.modelImageUrl = Plant image url
 temperature = Temperature
 humidity = Humidity
+wind.direction = Wind direction
+wind.speed = Wind speed
+rain.level = Rain level
 
 weatherNow.title = Weather now
