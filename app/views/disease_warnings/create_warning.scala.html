@@ -6,7 +6,7 @@
         <h4>@Messages("create.disease.warning.title")</h4>
         @helper.form(action = routes.DiseaseWarningController.submit(), 'class -> "disease-warning-form") {
             @b3.select(diseaseWarningForm("paramId"), options = PlantDiseaseCondition.weatherParameters(messages), '_label -> Messages("plant.disease.select.condition"), 'required -> "true")
-            <button type="button" class="btn btn-raised btn-primary save-plant-disease">Save changes</button>
+            <submit type="submit" class="btn btn-raised btn-primary create-disease-warning">Save changes</submit>
             <a href="@routes.PlantDiseaseController.index()" class="btn btn-default">Back to list</a>
         }
     </div>
