@@ -35,10 +35,14 @@ class DiseaseWarningController @Inject()(
     Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect())))
   }
 
-  def submit = silhouette.SecuredAction.async { implicit request =>
-    diseaseWarningDao.all().map(warnings => {
-      Ok(views.html.disease_warnings.disease_warnings())
-    })
+  def submit = silhouette.SecuredAction { implicit request =>
+    DiseaseWarningForm.form.bindFromRequest.fold(
+      formWithErrors => {
+        BadRequest(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect()))
+      },
+      diseaseWarningData => {
+        Redirect(routes.DiseaseWarningController.index())
+      }
+    )
   }
-
 }
