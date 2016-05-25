@@ -36,11 +36,11 @@ class PlantDiseaseController @Inject()(
         }))
       }
         //change to proper handling w/o await
-    }.map(modelsWithCond => Ok(views.html.plant_models(Await.result(modelsWithCond, Duration(1, TimeUnit.SECONDS)))))
+    }.map(modelsWithCond => Ok(views.html.plant_disease_models.plant_models(Await.result(modelsWithCond, Duration(1, TimeUnit.SECONDS)))))
   }
 
   def createModel = silhouette.SecuredAction.async { implicit request =>
-      Future.successful(Ok(views.html.create_model(PlantDiseaseModelForm.form,
+      Future.successful(Ok(views.html.plant_disease_models.create_model(PlantDiseaseModelForm.form,
                                                    PlantDiseaseConditionForm.form)))
   }
 
