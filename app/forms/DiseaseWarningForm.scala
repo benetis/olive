@@ -14,16 +14,11 @@ object DiseaseWarningForm {
    */
   val form = Form(
     mapping(
-      "paramId" -> number,
-      "condition" -> of(floatFormat),
-      "conditionParam" -> number,
-      "duration" -> number(min = 0)
+      "modelId" -> number
     )(Data.apply)(Data.unapply)
   )
 
   case class Data(
-    paramId: Int,
-    condition: Float,
-    conditionParam: Int,
-    duration: Int)
+    modelId: Int
+                 )
 }
