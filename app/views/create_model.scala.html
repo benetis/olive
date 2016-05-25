@@ -1,7 +1,7 @@
 @(plantDiseaseModelForm: Form[forms.PlantDiseaseModelForm.Data], plantDiseaseConditionForm: Form[forms.PlantDiseaseConditionForm.Data])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 @import b3.inline.fieldConstructor
 
-@templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
+@templates.logged(Messages("create.plant.disease.model.title"), tab = "plantDiseaseModels") {
     <div class="col-md-8 col-md-offset-2">
         <h4>@Messages("plant.disease.models.create")</h4>
         @helper.form(action = routes.PlantDiseaseController.submit(), 'class -> "plant-disease-form") {

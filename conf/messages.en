@@ -49,6 +49,7 @@ plant.disease.models.name = Name
 plant.disease.models.description = Description
 plant.disease.models.description.empty = No description
 plant.disease.models.title = Disease models
+create.plant.disease.model.title = Create disease model
 
 plant.disease.models.condition.create = Create new condition
 plant.disease.select.condition = Weather parameter
