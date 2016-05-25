@@ -6,18 +6,21 @@
     <ul class="nav navbar-nav">
     @if(withMainTabs) {
             @loggedUser.map { user =>
-                    <li class="@("active".when(tab == "weatherStations"))">
-                        <a href="@routes.WeatherStationController.index">Weather stations</a>
-                    </li>
+                <li class="@("active".when(tab == "weatherStations"))">
+                    <a href="@routes.WeatherStationController.index">Weather stations</a>
+                </li>
                 <li class="@("active".when(tab == "plantDiseaseModels"))">
-                        <a href="@routes.PlantDiseaseController.index">Plant disease models</a>
-                    </li>
-                    <li class="@("active".when(tab == "samples"))">
-                        <a href="@routes.SampleController.index">@Messages("samples.title")</a>
-                    </li>
+                    <a href="@routes.PlantDiseaseController.index">@messages("plant.disease.models.title")</a>
+                </li>
+                <li class="@("active".when(tab == "samples"))">
+                    <a href="@routes.SampleController.index">@Messages("samples.title")</a>
+                </li>
                 <li class="@("active".when(tab == "weatherNow"))">
-                        <a href="@routes.SampleController.index">@Messages("weatherNow.title")</a>
-                    </li>
+                    <a href="@routes.SampleController.index">@Messages("weather.now.title")</a>
+                </li>
+                <li class="@("active".when(tab == "diseaseWarnings"))">
+                    <a href="@routes.SampleController.index">@Messages("disease.warnings.title")</a>
+                </li>
             }
     }
     </ul>

@@ -40,14 +40,15 @@ vk = VK
 xing = Xing
 yahoo = Yahoo
 
-weather.stations.title = Weather stations
-samples.title = Weather history
+weather.stations.title = Stations
+samples.title = Graphs
 samples = Weather history
 
 plant.disease.models.create = Create new plant disease model
 plant.disease.models.name = Name
 plant.disease.models.description = Description
 plant.disease.models.description.empty = No description
+plant.disease.models.title = Disease models
 
 plant.disease.models.condition.create = Create new condition
 plant.disease.select.condition = Weather parameter
@@ -61,4 +62,5 @@ wind.direction = Wind direction
 wind.speed = Wind speed
 rain.level = Rain level
 
-weatherNow.title = Weather now
+weather.now.title = Weather now
+disease.warnings.title = Warnings
