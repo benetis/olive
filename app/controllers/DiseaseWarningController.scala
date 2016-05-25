@@ -28,4 +28,10 @@ class DiseaseWarningController @Inject()(
     Future.successful(Ok(views.html.disease_warnings()))
   }
 
+
+  def createWarning = silhouette.SecuredAction.async { implicit request =>
+    Future.successful(Ok(views.html.create_model(PlantDiseaseModelForm.form,
+      PlantDiseaseConditionForm.form)))
+  }
+
 }
