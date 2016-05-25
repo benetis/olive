@@ -7,7 +7,7 @@
     @if(withMainTabs) {
             @loggedUser.map { user =>
                 <li class="@("active".when(tab == "weatherStations"))">
-                    <a href="@routes.WeatherStationController.index">Weather stations</a>
+                    <a href="@routes.WeatherStationController.index">@messages("weather.stations.title")</a>
                 </li>
                 <li class="@("active".when(tab == "plantDiseaseModels"))">
                     <a href="@routes.PlantDiseaseController.index">@messages("plant.disease.models.title")</a>
