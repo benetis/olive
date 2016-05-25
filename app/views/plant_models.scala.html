@@ -1,7 +1,7 @@
 @(plantDiseaseModels: Seq[(PlantDiseaseModel, Seq[PlantDiseaseCondition])])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 @import b3.inline.fieldConstructor
 
-@templates.logged(Messages("samples.title"), tab = "plantDiseaseModels") {
+@templates.logged(Messages("plant.disease.models.title"), tab = "plantDiseaseModels") {
     <div class="sample col-md-8 col-md-offset-2">
         <div class="row data">
             <div >
@@ -43,7 +43,7 @@
                         <div class="list-group-separator"></div>
                     }
                 </div>
-                <span class="create-plant-disease-button-container pull-right">
+                <span class="floating-create-button pull-right">
                     <a href="@routes.PlantDiseaseController.createModel()" class="btn btn-success btn-fab create-plant-disease" ><i class="material-icons">grade</i></a>
                 </span>
             </div>
