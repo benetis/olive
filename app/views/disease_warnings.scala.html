@@ -1,0 +1,12 @@
+@()(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@import b3.inline.fieldConstructor
+
+@templates.logged(Messages("disease.warnings.title"), tab = "diseaseWarnings") {
+    <div class="sample col-md-8 col-md-offset-2">
+        <div class="row data">
+        </div>
+    </div>
+
+    @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
+                      module = routes.Assets.at("javascripts/plantDiseaseModels/plantDiseaseModels.js").url)
+}
