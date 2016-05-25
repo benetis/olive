@@ -1,0 +1,1 @@
+Favicon -> E.g.: Icon made by Freepik from www.flaticon.com
