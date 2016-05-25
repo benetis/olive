@@ -1,0 +1,17 @@
+@(diseaseWarningForm: Form[forms.DiseaseWarningForm.Data])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@import b3.inline.fieldConstructor
+
+@templates.logged(Messages("create.disease.warning.title"), tab = "diseaseWarnings") {
+    <div class="col-md-8 col-md-offset-2">
+        <h4>@Messages("create.disease.warning.title")</h4>
+        @helper.form(action = routes.DiseaseWarningController.submit(), 'class -> "disease-warning-form") {
+            @b3.select(diseaseWarningForm("paramId"), options = PlantDiseaseCondition.weatherParameters(messages), '_label -> Messages("plant.disease.select.condition"), 'required -> "true")
+            <button type="button" class="btn btn-raised btn-primary save-plant-disease">Save changes</button>
+            <a href="@routes.PlantDiseaseController.index()" class="btn btn-default">Back to list</a>
+        }
+    </div>
+
+    @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
+                      module = routes.Assets.at("javascripts/diseaseWarnings/diseaseWarningsCreate.js").url)
+
+}

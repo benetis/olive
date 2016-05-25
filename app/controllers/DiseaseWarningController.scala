@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
-import forms.{PlantDiseaseConditionForm, PlantDiseaseModelForm}
+import forms.{DiseaseWarningForm, PlantDiseaseConditionForm, PlantDiseaseModelForm}
 import models.daos.{DiseaseWarningDAO, PlantDiseaseConditionDAO, PlantDiseaseModelDAO}
 import models.{PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition}
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -32,8 +32,11 @@ class DiseaseWarningController @Inject()(
 
 
   def createWarning = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.plant_disease_models.create_model(PlantDiseaseModelForm.form,
-      PlantDiseaseConditionForm.form)))
+    Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form)))
+  }
+
+  def submit = silhouette.SecuredAction.async { implicit request =>
+    Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form)))
   }
 
 }

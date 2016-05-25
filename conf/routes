@@ -23,7 +23,7 @@ GET         /createPlantsDiseaseModel      controllers.PlantDiseaseController.cr
 POST        /createPlantsDiseaseCondition  controllers.PlantDiseaseController.conditionSubmit
 
 GET         /diseaseWarnings               controllers.DiseaseWarningController.index
-#POST        /diseaseWarnings               controllers.DiseaseWarningController.submit
+POST        /diseaseWarnings               controllers.DiseaseWarningController.submit
 GET         /createDiseaseWarning          controllers.DiseaseWarningController.createWarning
 
 
