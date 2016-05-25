@@ -1,20 +1,17 @@
 package controllers
 
-import java.util.concurrent.TimeUnit
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
-import forms.{DiseaseWarningForm, PlantDiseaseConditionForm, PlantDiseaseModelForm}
-import models.daos.{DiseaseWarningDAO, PlantDiseaseConditionDAO, PlantDiseaseModelDAO}
-import models.{DiseaseWarning, PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition}
+import forms.DiseaseWarningForm
+import models.DiseaseWarning
+import models.daos.{DiseaseWarningDAO, PlantDiseaseModelDAO}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json._
 import play.api.mvc._
 import utils.auth.{AuthenticationController, DefaultEnv}
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 
 
 @Singleton
@@ -42,7 +39,8 @@ class DiseaseWarningController @Inject()(
       },
       diseaseWarningData => {
         val userId = request.identity.userID
-        diseaseWarningDao.insert(DiseaseWarning(modelId = diseaseWarningData.modelId.toLong, userId = userId))
+        //todo: research how to use UUID as type
+        diseaseWarningDao.insert(DiseaseWarning(modelId = diseaseWarningData.modelId.toLong, userId = userId.toString))
           .map(_ => Redirect(routes.DiseaseWarningController.index()))
       }
     )

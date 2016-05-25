@@ -25,7 +25,7 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
   private class DiseaseWarningTable(tag: Tag) extends Table[DiseaseWarning](tag, "DISEASE_WARNING") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def modelId = column[Long]("model_id")
-    def userId = column[UUID]("user_id")
+    def userId = column[String]("user_id")
 
     def * = (id.?, modelId, userId) <> ((DiseaseWarning.apply _).tupled, DiseaseWarning.unapply _)
   }
