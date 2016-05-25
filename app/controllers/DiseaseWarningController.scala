@@ -19,24 +19,26 @@ import scala.concurrent.{Await, Future}
 
 @Singleton
 class DiseaseWarningController @Inject()(
-                                          diseaseWarning: DiseaseWarningDAO,
+                                          diseaseWarningDao: DiseaseWarningDAO,
+                                          plantDiseaseModelDao: PlantDiseaseModelDAO,
                                           val messagesApi: MessagesApi,
                                           silhouette: Silhouette[DefaultEnv]
 ) extends Controller with I18nSupport with AuthenticationController  {
 
   def index = silhouette.SecuredAction.async { implicit request =>
-    diseaseWarning.all().map(warnings => {
+    diseaseWarningDao.all().map(warnings => {
       Ok(views.html.disease_warnings.disease_warnings())
     })
   }
 
-
   def createWarning = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form)))
+    Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect())))
   }
 
   def submit = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form)))
+    diseaseWarningDao.all().map(warnings => {
+      Ok(views.html.disease_warnings.disease_warnings())
+    })
   }
 
 }

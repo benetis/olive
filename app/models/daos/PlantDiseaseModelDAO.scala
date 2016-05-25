@@ -1,5 +1,6 @@
 package models.daos
 
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 import models.{PlantDiseaseCondition, PlantDiseaseModel}
@@ -7,7 +8,8 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
 class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] {
   import driver.api._
@@ -20,6 +22,14 @@ class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseCon
 
   def insertId(plantDiseaseModel: PlantDiseaseModel): Future[Long] = {
     db.run((plantDiseaseModels returning plantDiseaseModels.map(_.id)) += plantDiseaseModel)
+  }
+
+  def allForSelect(): Seq[(String, String)] = {
+    Await.result(all().map(models => {
+      models.map(model => {
+        model.id.toString -> model.name
+      })
+    }), Duration(1, TimeUnit.SECONDS))
   }
 
   private class PlantDiseaseModelTable(tag: Tag) extends Table[PlantDiseaseModel](tag, "PLANT_DISEASE_MODEL") {
