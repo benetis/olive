@@ -27,7 +27,7 @@ class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseCon
   def allForSelect(): Seq[(String, String)] = {
     Await.result(all().map(models => {
       models.map(model => {
-        model.id.toString -> model.name
+        model.id.getOrElse(0).toString -> model.name
       })
     }), Duration(1, TimeUnit.SECONDS))
   }

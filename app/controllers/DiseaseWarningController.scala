@@ -6,7 +6,7 @@ import javax.inject._
 import com.mohiva.play.silhouette.api.Silhouette
 import forms.{DiseaseWarningForm, PlantDiseaseConditionForm, PlantDiseaseModelForm}
 import models.daos.{DiseaseWarningDAO, PlantDiseaseConditionDAO, PlantDiseaseModelDAO}
-import models.{PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition}
+import models.{DiseaseWarning, PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
@@ -35,13 +35,15 @@ class DiseaseWarningController @Inject()(
     Future.successful(Ok(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect())))
   }
 
-  def submit = silhouette.SecuredAction { implicit request =>
+  def submit = silhouette.SecuredAction.async { implicit request =>
     DiseaseWarningForm.form.bindFromRequest.fold(
       formWithErrors => {
-        BadRequest(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect()))
+        Future.successful(BadRequest(views.html.disease_warnings.create_warning(DiseaseWarningForm.form, plantDiseaseModelDao.allForSelect())))
       },
       diseaseWarningData => {
-        Redirect(routes.DiseaseWarningController.index())
+        val userId = request.identity.userID
+        diseaseWarningDao.insert(DiseaseWarning(modelId = diseaseWarningData.modelId.toLong, userId = userId))
+          .map(_ => Redirect(routes.DiseaseWarningController.index()))
       }
     )
   }

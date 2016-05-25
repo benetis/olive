@@ -5,10 +5,11 @@
     <div class="col-md-8 col-md-offset-2">
         <h4>@Messages("create.disease.warning.title")</h4>
         @helper.form(action = routes.DiseaseWarningController.submit(), 'class -> "disease-warning-form") {
+            @helper.CSRF.formField
             @b3.select(diseaseWarningForm("modelId"),
                 options = plantDiseaseModels, '_label -> Messages("plant.disease.model.select"), 'required -> "true")
-            <submit type="submit" class="btn btn-raised btn-primary create-disease-warning">Save changes</submit>
-            <a href="@routes.PlantDiseaseController.index()" class="btn btn-default">Back to list</a>
+            <input type="submit" value="@messages("save.changes")" class="btn btn-raised btn-primary create-disease-warning"/>
+            <a href="@routes.PlantDiseaseController.index( )" class="btn btn-default">Back to list</a>
         }
     </div>
 
