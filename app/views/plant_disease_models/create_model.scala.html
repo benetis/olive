@@ -32,7 +32,7 @@
                     @b3.select( plantDiseaseConditionForm("paramId"), options = PlantDiseaseCondition.weatherParameters(messages), '_label -> Messages("plant.disease.select.condition"), 'required -> "true")
                     @b3.select( plantDiseaseConditionForm("conditionParam"), options = PlantDiseaseCondition.conditionParams(), '_label -> Messages("plant.disease.select.conditionParam"), 'required -> "true")
                     @b3.number( plantDiseaseConditionForm("condition"), '_label -> Messages("plant.disease.condition.limit"), 'step -> 5, 'required -> "true")
-                    @b3.number( plantDiseaseConditionForm("duration"), '_label -> Messages("plant.disease.condition.duration"), 'step -> 360, 'min -> 0, 'required -> "true")
+                    @b3.number( plantDiseaseConditionForm("duration"), '_label -> Messages("plant.disease.condition.duration"), 'step -> 1, 'min -> 0, 'required -> "true")
                     </div>
                     <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
