@@ -1,4 +1,5 @@
 //@import "_old";
+@import "_mixins";
 
 .plant-disease-model {
   display: flex;
@@ -6,13 +7,25 @@
   flex-direction: row;
 }
 
+.plant-disease-model-in-panel {
+  display: flex;
+  flex-direction: row;
+}
+
 .plant-disease-content, .plant-disease-icon {
   flex-wrap: nowrap;
 }
 .plant-disease-icon-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  .icon-container;
+}
+
+.plant-disease-icon-container-in-panel {
+  .icon-container;
+  margin-right: 1em;
+}
+
+.plant-disease-content-in-panel {
+  margin-top: 4px;
 }
 
 .plant-disease-conditions {

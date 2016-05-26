@@ -10,24 +10,16 @@
                     </div>
                     <div class="panel-body">
                         @for((warning, diseaseModel) <- triggeredWarnings) {
-                            <div class="list-group-item plant-disease-model">
-                                <div class="plant-disease-icon-container">
+                            <div class="list-group-item plant-disease-model-in-panel">
+                                <div class="plant-disease-icon-container-in-panel">
                                     <div class="row-action-primary plant-disease-icon">
                                         <i class="material-icons icons-lg">local_florist</i>
                                     </div>
                                 </div>
-                                <div class="row-content plant-disease-content">
+                                <div class="row-content plant-disease-content-in-panel">
                                     <h4 class="list-group-item-heading">
                                     @diseaseModel.name
                                     </h4>
-                                    <p class="list-group-item-text">
-                                    @if(diseaseModel.description.isEmpty) {
-                                        @messages("plant.disease.models.description.empty")
-                                    } else {
-                                        @diseaseModel.description
-                                    }
-                                    </p>
-
                                 </div>
                             </div>
                             <div class="list-group-separator"></div>
