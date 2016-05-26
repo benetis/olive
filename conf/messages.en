@@ -67,3 +67,5 @@ weather.now.title = Weather now
 disease.warnings.title = Warnings
 create.disease.warning.title = Create disease warning
 plant.disease.model.select = Select plant disease model
+disease.warnings.triggered = Triggered warnings
+disease.warnings.set = Warnings set
