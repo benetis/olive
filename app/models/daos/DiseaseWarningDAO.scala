@@ -12,6 +12,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 
 class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] with DBTableDefinitions {
+
   import driver.api._
 
   private val diseaseWarnings = TableQuery[DiseaseWarningTable]
@@ -87,6 +88,11 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
   }
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
+
+  def deleteById(id: Long) = { db.run(
+    diseaseWarnings.filter(_.id === id).delete
+  )}
+
 
   def createTable() = {
     db.run(diseaseWarnings.schema.create)

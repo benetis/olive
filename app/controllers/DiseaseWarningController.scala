@@ -43,4 +43,10 @@ class DiseaseWarningController @Inject()(
       }
     )
   }
+
+  def deleteWarning(id: String) = Action.async { implicit request =>
+    diseaseWarningDao.deleteById(id.toLong).map(deleted => {
+      Redirect(routes.DiseaseWarningController.index())
+    })
+  }
 }

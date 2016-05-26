@@ -26,6 +26,8 @@ POST        /createPlantsDiseaseCondition  controllers.PlantDiseaseController.co
 GET         /diseaseWarnings               controllers.DiseaseWarningController.index
 POST        /diseaseWarnings               controllers.DiseaseWarningController.submit
 GET         /createDiseaseWarning          controllers.DiseaseWarningController.createWarning
+GET         /diseaseWarnings/:id           controllers.DiseaseWarningController.deleteWarning(id)
+
 
 GET         /weatherNow                    controllers.WeatherNowController.index
 
