@@ -77,3 +77,4 @@ back.to.list = Grįžti į sąrašą
 close = Uždaryti
 create.condition = Sukurti sąlygą
 add.condition = Pridėti sąlygą
+at.least.one.condition = Kad ligų modelis veiktų turite pridėti bent vieną sąlygą

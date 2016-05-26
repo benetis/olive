@@ -9,7 +9,7 @@
             @b3.text(plantDiseaseModelForm("description"), '_label -> Messages("plant.disease.models.description"), 'class -> "form-control input-lg col-md-10")
             @b3.url(plantDiseaseModelForm("modelImageUrl"), '_label -> Messages("plant.disease.models.modelImageUrl"), 'class -> "form-control input-lg col-md-10")
             <div class="plant-disease-conditions">
-                <h5>For the plant disease model to work you must add at least one weather condition</h5>
+                <h5>@messages("at.least.one.condition")</h5>
                 <button type="button" class="btn btn-info create-plant-disease-condition">@messages("add.condition")</button>
                 <ul class="condition-list">
                 </ul>
@@ -25,7 +25,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">@Messages("plant.disease.condition.create")</h4>
+                    <h4 class="modal-title">@Messages("condition.create")</h4>
                 </div>
                 @helper.form(action = routes.PlantDiseaseController.conditionSubmit(), 'class -> "plant-disease-condition-form") {
                     <div class="modal-body">
