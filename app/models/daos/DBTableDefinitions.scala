@@ -1,12 +1,9 @@
 package models.daos
 
-import java.util.UUID
-
 import com.mohiva.play.silhouette.api.LoginInfo
-import models.WeatherStation
+import models.{DiseaseWarning, PlantDiseaseCondition, PlantDiseaseModel}
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
-import slick.util.TupleMethods._
 
 trait DBTableDefinitions {
   
@@ -146,6 +143,34 @@ trait DBTableDefinitions {
     def * = (id.?, key, name, coordinatesX, coordinatesY) <> ((DBWeatherStation.apply _).tupled, DBWeatherStation.unapply _)
   }
 
+  class PlantDiseaseConditionTable(tag: Tag) extends Table[PlantDiseaseCondition](tag, "PLANT_DISEASE_CONDITION") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def paramId = column[Int]("param_id")
+    def modelId = column[Long]("model_id")
+    def condition = column[Float]("condition")
+    def conditionParam = column[Int]("condition_param")
+    def duration = column[Int]("duration")
+
+    def * = (id.?, paramId, modelId.?, condition, conditionParam, duration ) <> ((PlantDiseaseCondition.apply _).tupled, PlantDiseaseCondition.unapply _)
+  }
+
+  class DiseaseWarningTable(tag: Tag) extends Table[DiseaseWarning](tag, "DISEASE_WARNING") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def modelId = column[Long]("model_id")
+    def userId = column[String]("user_id")
+
+    def * = (id.?, modelId, userId) <> ((DiseaseWarning.apply _).tupled, DiseaseWarning.unapply _)
+  }
+
+  class PlantDiseaseModelTable(tag: Tag) extends Table[PlantDiseaseModel](tag, "PLANT_DISEASE_MODEL") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def name = column[String]("name")
+    def description = column[String]("description")
+    def modelImageUrl = column[String]("model_image_url")
+
+    def * = (id.?, name, description.? , modelImageUrl.? ) <> ((PlantDiseaseModel.apply _).tupled, PlantDiseaseModel.unapply _)
+  }
+
   // table query definitions
   val slickUsers = TableQuery[Users]
   val slickLoginInfos = TableQuery[LoginInfos]
@@ -156,6 +181,10 @@ trait DBTableDefinitions {
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
   val slickWeatherStations = TableQuery[WeatherStationTable]
+  val slickPlantDiseaseModels = TableQuery[PlantDiseaseModelTable]
+  val slickDiseaseWarnings = TableQuery[DiseaseWarningTable]
+  val slickPlantDiseaseConditions = TableQuery[PlantDiseaseConditionTable]
+
 
   // queries used in multiple places
   def loginInfoQuery(loginInfo: LoginInfo) = 
