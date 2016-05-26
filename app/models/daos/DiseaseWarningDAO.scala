@@ -25,6 +25,13 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
     db.run(join.result)
   }
 
+  def allOnlyModels(): Future[Seq[PlantDiseaseModel]] = {
+    val join = for {
+      (warning, model) <- diseaseWarnings join slickPlantDiseaseModels on (_.modelId === _.id)
+    } yield (model)
+    db.run(join.result)
+  }
+
 //  def allWithConditions(): Future[Seq[(DiseaseWarning, PlantDiseaseCondition)]] = {
 //    val join = for {
 //      (warning, conditions) <- diseaseWarnings join slickPlantDiseaseConditions on (_.modelId === _.modelId)
@@ -75,12 +82,8 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
   }
 
   //todo: fix async
-  def notTriggeredWarnings() = {
-    val triggered = triggeredWarningsAsModels()
-    val notTriggeredModels = allWithModels().map(models => models.filter(model => {
-      triggered.exists(triggeredModel => triggeredModel.id != model._2.id)
-    }).map(warningWithModel => warningWithModel._2))
-    Await.result(notTriggeredModels ,Duration(1, TimeUnit.SECONDS))
+  def allObservedWarnings() = {
+    Await.result(allOnlyModels() ,Duration(1, TimeUnit.SECONDS))
   }
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
