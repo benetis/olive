@@ -9,7 +9,7 @@
             @b3.select(diseaseWarningForm("modelId"),
                 options = plantDiseaseModels, '_label -> Messages("plant.disease.model.select"), 'required -> "true")
             <input type="submit" value="@messages("save.changes")" class="btn btn-raised btn-primary create-disease-warning"/>
-            <a href="@routes.DiseaseWarningController.index( )" class="btn btn-default">Back to list</a>
+            <a href="@routes.DiseaseWarningController.index( )" class="btn btn-default">@messages("back.to.list")</a>
         }
     </div>
 

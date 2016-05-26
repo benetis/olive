@@ -14,9 +14,9 @@
                 <ul class="condition-list">
                 </ul>
             </div>
-            <button type="button" class="btn btn-raised btn-primary save-plant-disease">Save changes</button>
+            <button type="button" class="btn btn-raised btn-primary save-plant-disease">@messages("save.changes")</button>
             <input type="submit" style="display:none;"/>
-            <a href="@routes.PlantDiseaseController.index()" class="btn btn-default">Back to list</a>
+            <a href="@routes.PlantDiseaseController.index()" class="btn btn-default">@messages("back.to.list")</a>
         }
     </div>
 
@@ -35,8 +35,8 @@
                     @b3.number( plantDiseaseConditionForm("duration"), '_label -> Messages("plant.disease.condition.duration"), 'step -> 1, 'min -> 0, 'required -> "true")
                     </div>
                     <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary save-plant-disease-condition">Create condition</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">@messages("close")</button>
+                            <button type="button" class="btn btn-primary save-plant-disease-condition">@messages("create.condition")</button>
                             <input type="submit" style="display:none;"/>
                     </div>
                     }

@@ -60,7 +60,7 @@ humidity = Drėgmė
 relative.humidity = Santykinė drėgmė
 wind.direction = Vėjo kryptis
 wind.speed = Vėjo greitis
-rain.level = Lietaus lygys
+rain.level = Lietaus lygis
 
 weather.now.title = Oras dabar
 weather.now = Dabartinis oras
@@ -68,7 +68,11 @@ weather.now = Dabartinis oras
 disease.warnings.title = Įspėjimas
 create.disease.warning.title = Sukurti ligos įspėjimą
 plant.disease.model.select = Pasirinkti augalų ligos modelį
-disease.warnings.triggered = Sukeltas įspėjimas (?)
+disease.warnings.triggered = Galimas ligos pavojus
 disease.warnings.set = Šiuo metu stebima
 
 time.taken = Matuota
+save.changes = Išsaugoti
+back.to.list = Grįžti į sąrašą
+close = Uždaryti
+create.condition = Sukurti sąlygą
