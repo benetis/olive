@@ -4,11 +4,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject._
 
 import com.mohiva.play.silhouette.api.Silhouette
-import forms.{PlantDiseaseConditionForm, PlantDiseaseModelForm, SignInForm}
-import models.{PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition, Sample}
-import models.Sample.tempAndClockedFormat
-import models.daos.{PlantDiseaseConditionDAO, PlantDiseaseModelDAO, SampleDAO}
-import play.api.i18n.{I18nSupport, Messages, MessagesApi}
+import forms.{PlantDiseaseConditionForm, PlantDiseaseModelForm}
+import models.daos.{PlantDiseaseConditionDAO, PlantDiseaseModelDAO}
+import models.{PlantDiseaseCondition, PlantDiseaseModel, PlantDiseaseModelWithCondition}
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import play.api.mvc._
@@ -77,6 +76,12 @@ class PlantDiseaseController @Inject()(
       case Some(a) => a
       case None => Future.successful(BadRequest("json error"))
     }
+  }
+
+  def deleteDiseaseModel(id: String) = Action.async { implicit request =>
+    plantDiseaseModelDao.deleteById(id.toLong).map(deleted => {
+      Redirect(routes.PlantDiseaseController.index())
+    })
   }
 
 }

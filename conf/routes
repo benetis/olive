@@ -19,6 +19,7 @@ GET         /weatherStations               controllers.WeatherStationController.
 
 GET         /plantsDiseaseModels           controllers.PlantDiseaseController.index
 POST        /plantsDiseaseModels           controllers.PlantDiseaseController.submit
+GET         /plantsDiseaseModels/:id       controllers.PlantDiseaseController.deleteDiseaseModel(id)
 GET         /createPlantsDiseaseModel      controllers.PlantDiseaseController.createModel
 POST        /createPlantsDiseaseCondition  controllers.PlantDiseaseController.conditionSubmit
 

@@ -24,6 +24,10 @@ class PlantDiseaseModelDAO @Inject()(protected val dbConfigProvider: DatabaseCon
     db.run((plantDiseaseModels returning plantDiseaseModels.map(_.id)) += plantDiseaseModel)
   }
 
+  def deleteById(id: Long) = { db.run(
+    plantDiseaseModels.filter(_.id === id).delete
+  )}
+
   def allForSelect(): Seq[(String, String)] = {
     Await.result(all().map(models => {
       models.map(model => {
