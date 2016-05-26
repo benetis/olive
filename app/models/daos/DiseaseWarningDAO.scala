@@ -38,7 +38,7 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
 
 //  //todo: optimize query or better go with insert strategy
   //todo: fix async
-  def triggeredWithModels(): Seq[PlantDiseaseModel] = {
+  def triggeredWarningsAsModels(): Seq[PlantDiseaseModel] = {
     val conditionsFuture = allWithModels().map(models => models.map(model => {
       db.run(slickPlantDiseaseConditions.filter(_.modelId === model._2.id).result)
     })).map(condition => Future.sequence(condition)).flatMap(identity)
@@ -72,7 +72,16 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
       db.run(slickPlantDiseaseModels.filter(_.id === condition.modelId).result)
     }))
     Await.result(warnings ,Duration(1, TimeUnit.SECONDS)).flatten.distinct
-}
+  }
+
+  //todo: fix async
+  def notTriggeredWarnings() = {
+    val triggered = triggeredWarningsAsModels()
+    val notTriggeredModels = allWithModels().map(models => models.filter(model => {
+      triggered.exists(triggeredModel => triggeredModel.id != model._2.id)
+    }).map(warningWithModel => warningWithModel._2))
+    Await.result(notTriggeredModels ,Duration(1, TimeUnit.SECONDS))
+  }
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
 
