@@ -1,13 +1,12 @@
 package models.daos
 
 import java.util.UUID
+import javax.inject.Inject
+
 import com.mohiva.play.silhouette.api.LoginInfo
 import models.User
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import slick.dbio.DBIOAction
-import javax.inject.Inject
 import play.api.db.slick.DatabaseConfigProvider
-import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 /**
   * Give access to the user object using Slick
@@ -30,7 +29,7 @@ class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
     } yield dbUser
     db.run(userQuery.result.headOption).map { dbUserOption =>
       dbUserOption.map { user =>
-        User(UUID.fromString(user.userID), loginInfo, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL)
+        User(UUID.fromString(user.userID), loginInfo, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL, user.isAdmin)
       }
     }
   }
@@ -57,7 +56,8 @@ class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
             user.lastName,
             user.fullName,
             user.email,
-            user.avatarURL)
+            user.avatarURL,
+            user.isAdmin)
       }
     }
   }
@@ -69,7 +69,7 @@ class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
     * @return The saved user.
     */
   def save(user: User) = {
-    val dbUser = DBUser(user.userID.toString, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL)
+    val dbUser = DBUser(user.userID.toString, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL, user.isAdmin)
     val dbLoginInfo = DBLoginInfo(None, user.loginInfo.providerID, user.loginInfo.providerKey)
     // We don't have the LoginInfo id so we try to get it first.
     // If there is no LoginInfo yet for this user we retrieve the id on insertion.
