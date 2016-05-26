@@ -59,13 +59,19 @@ plant.disease.condition.duration = Duration
 plant.disease.models.modelImageUrl = Plant image url
 temperature = Temperature
 humidity = Humidity
+relative.humidity = Relative humidity
 wind.direction = Wind direction
 wind.speed = Wind speed
 rain.level = Rain level
 
 weather.now.title = Weather now
+weather.now = Current weather
+
 disease.warnings.title = Warnings
 create.disease.warning.title = Create disease warning
 plant.disease.model.select = Select plant disease model
 disease.warnings.triggered = Triggered warnings
 disease.warnings.set = Currently watching
+
+time.taken = Time taken
+

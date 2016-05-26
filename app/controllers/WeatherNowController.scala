@@ -20,7 +20,7 @@ class WeatherNowController @Inject()(
 
   def index = silhouette.SecuredAction.async { implicit request =>
     sampleDao.getLastSample.map {
-      samples: Seq[Sample] => Ok(views.html.weatherNow(samples)) }
+      samples: Seq[Sample] => Ok(views.html.weatherNow(samples.head)) }
   }
 
 

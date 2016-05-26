@@ -1,10 +1,31 @@
-@(currentWeather: Seq[models.Sample])(implicit messages: Messages, loggedUser: User)
+@import java.text.SimpleDateFormat
+@(currentWeather: models.Sample)(implicit messages: Messages, loggedUser: User)
 
-@templates.logged(Messages("samples.title"), tab = "weatherNow") {
+@templates.logged(Messages("weather.now.title"), tab = "weatherNow") {
     <div class="sample col-md-8 col-md-offset-2">
-        <div class="row data">
-            @currentWeather
-        </div>
+        <h1>@messages("weather.now")</h1>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>@messages("temperature"), °C</th>
+                    <th>@messages("relative.humidity"), %</th>
+                    <th>@messages("rain.level"), mm</th>
+                    <th>@messages("wind.speed"), m/s</th>
+                    <th>@messages("wind.direction")</th>
+                    <th>@messages("time.taken")</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@currentWeather.temperature</td>
+                    <td>@currentWeather.humidity</td>
+                    <td>@currentWeather.rainLevel</td>
+                    <td>@currentWeather.windSpeed</td>
+                    <td>@currentWeather.windDirection</td>
+                    <td>@{new SimpleDateFormat("HH:mm:ss").format(currentWeather.clocked)}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
                       module = routes.Assets.at("javascripts/history/charts.js").url)
