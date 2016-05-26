@@ -71,8 +71,8 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
     val warnings = Future.sequence(triggeredWarnings.map(condition => {
       db.run(slickPlantDiseaseModels.filter(_.id === condition.modelId).result)
     }))
-    Await.result(warnings ,Duration(1, TimeUnit.SECONDS)).flatten
-  }
+    Await.result(warnings ,Duration(1, TimeUnit.SECONDS)).flatten.distinct
+}
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
 
