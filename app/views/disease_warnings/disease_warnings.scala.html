@@ -1,4 +1,4 @@
-@(triggeredWarnings: Seq[(DiseaseWarning, PlantDiseaseModel)], warningsSet: Seq[(DiseaseWarning, PlantDiseaseModel)])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
+@(triggeredWarnings: Seq[PlantDiseaseModel], warningsSet: Seq[PlantDiseaseModel])(implicit request: RequestHeader, messages: Messages, loggedUser: User)
 
 @templates.logged(Messages("disease.warnings.title"), tab = "diseaseWarnings") {
     <div class="col-md-8 col-md-offset-2">
@@ -9,7 +9,7 @@
                         <h3 class="panel-title">@messages("disease.warnings.triggered")</h3>
                     </div>
                     <div class="panel-body">
-                        @for((warning, diseaseModel) <- triggeredWarnings) {
+                        @for(diseaseModel <- triggeredWarnings) {
                             <div class="list-group-item plant-disease-model-in-panel">
                                 <div class="plant-disease-icon-container-in-panel">
                                     <div class="row-action-primary plant-disease-icon">

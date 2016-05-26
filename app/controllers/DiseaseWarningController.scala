@@ -22,10 +22,8 @@ class DiseaseWarningController @Inject()(
                                           silhouette: Silhouette[DefaultEnv]
 ) extends Controller with I18nSupport with AuthenticationController  {
 
-  def index = silhouette.SecuredAction.async { implicit request =>
-    diseaseWarningDao.allWithModels().map(warnings => {
-      Ok(views.html.disease_warnings.disease_warnings(warnings, warnings))
-    })
+  def index = silhouette.SecuredAction { implicit request =>
+      Ok(views.html.disease_warnings.disease_warnings(diseaseWarningDao.triggeredWithModels(), diseaseWarningDao.triggeredWithModels()))
   }
 
   def createWarning = silhouette.SecuredAction.async { implicit request =>
