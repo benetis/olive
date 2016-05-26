@@ -16,7 +16,7 @@
                                 <h4 class="list-group-item-heading">
                                     @diseaseModel.name
                                 </h4>
-                                <div class="action-secondary"><a href="@routes.PlantDiseaseController.deleteDiseaseModel(diseaseModel.id.getOrElse(0).toString)"><i class="material-icons">delete</i></a></div>
+                                <div class="action-secondary delete-model"><a href="@routes.PlantDiseaseController.deleteDiseaseModel(diseaseModel.id.getOrElse(0).toString)"><i class="material-icons">delete</i></a></div>
                                 <div class="plant-disease-conditions">
                                     @for(condition <- diseaseConditions) {
                                         <div class="conditions-info">
