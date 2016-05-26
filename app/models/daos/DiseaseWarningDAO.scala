@@ -56,7 +56,7 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
                                avg(s.wind_direction), avg(s.wind_speed), avg(s.rain_level), s.clocked
         from sample s
         where
-        s.clocked >= now() - INTERVAL #$duration HOUR AND
+        s.clocked >= DATE_SUB(NOW(),INTERVAL #$duration HOUR) AND
         s.#$param #$conditionParam #$conditionLimit
         group by hour(s.clocked);
         """.as[Sample]
