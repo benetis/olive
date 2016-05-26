@@ -84,7 +84,7 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
 
   //todo: fix async
   def allObservedWarnings() = {
-    Await.result(allOnlyModels() ,Duration(1, TimeUnit.SECONDS))
+    Await.result(allWithModels() ,Duration(1, TimeUnit.SECONDS))
   }
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
