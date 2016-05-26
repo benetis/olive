@@ -3,9 +3,7 @@
 @templates.logged(Messages("samples.title"), tab = "samples") {
     <div class="sample col-md-8 col-md-offset-2">
         <div class="row data">
-            <div class="col-md-12">
-                    <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
+                <canvas id="myChart" width="400" height="400"></canvas>
         </div>
     </div>
     @helper.requireJs(core = routes.AssetsController.lib("requirejs/require.js").url,
