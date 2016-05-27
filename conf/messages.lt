@@ -39,6 +39,7 @@ xing = Xing
 yahoo = Yahoo
 
 weather.stations.title = Stotelės
+weather.stations.registered = Registruotos orų stotelės
 samples.title = Grafikai
 samples = Orų istorija
 
