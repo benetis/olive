@@ -19,16 +19,16 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
 
   def all(): Future[Seq[DiseaseWarning]] = db.run(diseaseWarnings.result)
 
-  def allWithModels(): Future[Seq[(DiseaseWarning, PlantDiseaseModel)]] = {
+  def allWithModels(userId: String): Future[Seq[(DiseaseWarning, PlantDiseaseModel)]] = {
     val join = for {
-      (warning, model) <- diseaseWarnings join slickPlantDiseaseModels on (_.modelId === _.id)
+      (warning, model) <- diseaseWarnings.filter(_.userId === userId) join slickPlantDiseaseModels on (_.modelId === _.id)
     } yield (warning, model)
     db.run(join.result)
   }
 
-  def allOnlyModels(): Future[Seq[PlantDiseaseModel]] = {
+  def allOnlyModels(userId: String): Future[Seq[PlantDiseaseModel]] = {
     val join = for {
-      (warning, model) <- diseaseWarnings join slickPlantDiseaseModels on (_.modelId === _.id)
+      (warning, model) <- diseaseWarnings.filter(_.userId === userId) join slickPlantDiseaseModels on (_.modelId === _.id)
     } yield (model)
     db.run(join.result)
   }
@@ -46,8 +46,8 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
 
 //  //todo: optimize query or better go with insert strategy
   //todo: fix async
-  def triggeredWarningsAsModels(): Seq[PlantDiseaseModel] = {
-    val conditionsFuture = allWithModels().map(models => models.map(model => {
+  def triggeredWarningsAsModels(userId: String): Seq[PlantDiseaseModel] = {
+    val conditionsFuture = allWithModels(userId).map(models => models.map(model => {
       db.run(slickPlantDiseaseConditions.filter(_.modelId === model._2.id).result)
     })).map(condition => Future.sequence(condition)).flatMap(identity)
 
@@ -83,8 +83,8 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
   }
 
   //todo: fix async
-  def allObservedWarnings() = {
-    Await.result(allWithModels() ,Duration(1, TimeUnit.SECONDS))
+  def allObservedWarnings(userId: String) = {
+    Await.result(allWithModels(userId) ,Duration(1, TimeUnit.SECONDS))
   }
 
   def insert(diseaseWarning: DiseaseWarning): Future[Unit] = db.run(diseaseWarnings += diseaseWarning).map { _ => () }
