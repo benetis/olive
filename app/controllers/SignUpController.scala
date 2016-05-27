@@ -14,6 +14,7 @@ import models.services.UserService
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.Controller
+import utils.WithService
 import utils.auth.DefaultEnv
 
 import scala.concurrent.Future
@@ -53,7 +54,7 @@ class SignUpController @Inject() (
    *
    * @return The result to display.
    */
-  def submit = silhouette.UnsecuredAction.async { implicit request =>
+  def submit = silhouette.SecuredAction(WithService()).async { implicit request =>
     SignUpForm.form.bindFromRequest.fold(
       form => Future.successful(BadRequest(views.html.signUp(form))),
       data => {
