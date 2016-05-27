@@ -15,8 +15,7 @@ object SignUpForm {
     mapping(
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
-      "email" -> email,
-      "password" -> nonEmptyText
+      "email" -> email
     )(Data.apply)(Data.unapply)
   )
 
@@ -31,6 +30,6 @@ object SignUpForm {
   case class Data(
     firstName: String,
     lastName: String,
-    email: String,
-    password: String)
+    email: String
+                 )
 }

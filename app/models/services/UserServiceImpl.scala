@@ -5,9 +5,10 @@ import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
-import models.User
+import models.{MailTokenUser, User}
 import models.daos.UserDAO
 import play.api.libs.concurrent.Execution.Implicits._
+import utils.auth.MailTokenUserService
 
 import scala.concurrent.Future
 
@@ -17,7 +18,7 @@ import scala.concurrent.Future
  * @param userDAO The user DAO implementation.
  */
 class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
-
+  val tokenService = new MailTokenUserService()
   /**
    * Retrieves a user that matches the specified login info.
    *
@@ -65,4 +66,5 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
         ))
     }
   }
+
 }

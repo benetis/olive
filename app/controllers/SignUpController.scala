@@ -9,13 +9,14 @@ import com.mohiva.play.silhouette.api.services.AvatarService
 import com.mohiva.play.silhouette.api.util.PasswordHasher
 import com.mohiva.play.silhouette.impl.providers._
 import forms.SignUpForm
-import models.User
+import models.{MailTokenUser, User}
 import models.services.UserService
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits._
-import play.api.mvc.Controller
-import utils.WithService
+import play.api.mvc.{Action, Controller}
+import utils.{Mailer, WithService}
 import utils.auth.DefaultEnv
+import views.html.auth
 
 import scala.concurrent.Future
 
@@ -50,6 +51,42 @@ class SignUpController @Inject() (
   }
 
   /**
+    * Handles the form filled by the user. The user and its password are saved and it sends him an email with a link to confirm his email address.
+    */
+//  def handleStartSignUp = silhouette.SecuredAction(WithService()) { implicit request =>
+//    SignUpForm.form.bindFromRequest.fold(
+//      formWithErrors => BadRequest(views.html.signUp(formWithErrors)),
+//      user => {
+//        val loginInfo = LoginInfo(CredentialsProvider.ID, user.email)
+//        userService.retrieve(loginInfo).flatMap {
+//          case Some(userN) =>
+//            Future.successful(BadRequest(views.html.signUp(SignUpForm.form.withError("email", Messages("user.exists")))))
+//          case None => {
+//            val user = User(
+//              userID = UUID.randomUUID(),
+//              loginInfo = loginInfo,
+//              firstName = Some(data.firstName),
+//              lastName = Some(data.lastName),
+//              fullName = Some(data.firstName + " " + data.lastName),
+//              email = Some(data.email),
+//              avatarURL = None,
+//              isAdmin = None
+//            )
+//              val token = MailTokenUser(user.email, isSignUp = true)
+//              for {
+//                savedUser <- userService.save(user.copy)
+//                _ <- new MailTokenUserService.create(token)
+//              } yield {
+//                Mailer.welcome(savedUser, link = routes.Auth.signUp(token.id).absoluteURL())
+//                Ok(views.auth.almostSignedUp(savedUser))
+//              }
+//            }
+//          }
+//        }
+//    )
+//  }
+
+  /**
    * Handles the submitted form.
    *
    * @return The result to display.
@@ -61,9 +98,8 @@ class SignUpController @Inject() (
         val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
         userService.retrieve(loginInfo).flatMap {
           case Some(user) =>
-            Future.successful(Redirect(routes.SignUpController.view()).flashing("error" -> Messages("user.exists")))
+            Future.successful(BadRequest(views.html.signUp(SignUpForm.form.withError("email", Messages("user.exists")))))
           case None =>
-            val authInfo = passwordHasher.hash(data.password)
             val user = User(
               userID = UUID.randomUUID(),
               loginInfo = loginInfo,
@@ -74,13 +110,11 @@ class SignUpController @Inject() (
               avatarURL = None,
               isAdmin = None
             )
+            val token = MailTokenUser(data.email, isSignUp = true)
             for {
               avatar <- avatarService.retrieveURL(data.email)
               user <- userService.save(user.copy(avatarURL = avatar))
-              authInfo <- authInfoRepository.add(loginInfo, authInfo)
-              authenticator <- silhouette.env.authenticatorService.create(loginInfo)
-              value <- silhouette.env.authenticatorService.init(authenticator)
-              result <- silhouette.env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
+              result <- Future.successful(Redirect(routes.ApplicationController.index()))
             } yield {
 //              silhouette.env.eventBus.publish(SignUpEvent(user, request))
 //              silhouette.env.eventBus.publish(LoginEvent(user, request))
