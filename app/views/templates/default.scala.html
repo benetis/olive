@@ -1,14 +1,16 @@
 @(title: String, loggedUser: Option[User] = None, withMainTabs: Boolean = true, tab: String = "", styles: Html = Html(""), scripts: Html = Html(""), modals: Html = Html(""))(content: Html)(implicit messages: Messages)
 
 @import controllers.routes
-
+@import views.html.tags._
 @navbarContent = {
     <ul class="nav navbar-nav">
     @if(withMainTabs) {
-            @loggedUser.map { user =>
-                <li class="@("active".when(tab == "weatherStations"))">
-                    <a href="@routes.WeatherStationController.index">@messages("weather.stations.title")</a>
-                </li>
+            @loggedUser.map { implicit user =>
+                @withService() {
+                    <li class="@("active".when(tab == "weatherStations"))">
+                        <a href="@routes.WeatherStationController.index">@messages("weather.stations.title")</a>
+                    </li>
+                }
                 <li class="@("active".when(tab == "plantDiseaseModels"))">
                     <a href="@routes.PlantDiseaseController.index">@messages("plant.disease.models.title")</a>
                 </li>
