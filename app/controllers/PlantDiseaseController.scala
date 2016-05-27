@@ -11,6 +11,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import play.api.mvc._
+import utils.WithService
 import utils.auth.{AuthenticationController, DefaultEnv}
 
 import scala.concurrent.duration.Duration
@@ -38,12 +39,12 @@ class PlantDiseaseController @Inject()(
     }.map(modelsWithCond => Ok(views.html.plant_disease_models.plant_models(Await.result(modelsWithCond, Duration(1, TimeUnit.SECONDS)))))
   }
 
-  def createModel = silhouette.SecuredAction.async { implicit request =>
+  def createModel = silhouette.SecuredAction(WithService()).async { implicit request =>
       Future.successful(Ok(views.html.plant_disease_models.create_model(PlantDiseaseModelForm.form,
                                                    PlantDiseaseConditionForm.form)))
   }
 
-  def submit = silhouette.SecuredAction.async { implicit request =>
+  def submit = silhouette.SecuredAction(WithService()).async { implicit request =>
     val jsonRequest = request.body.asJson
     //Callback hell :o TODO: fix this
     jsonRequest.map { json => json.validate[PlantDiseaseModelWithCondition] match {
@@ -78,7 +79,7 @@ class PlantDiseaseController @Inject()(
     }
   }
 
-  def deleteDiseaseModel(id: String) = Action.async { implicit request =>
+  def deleteDiseaseModel(id: String) = silhouette.SecuredAction(WithService()).async { implicit request =>
     plantDiseaseModelDao.deleteById(id.toLong).map(deleted => {
       Redirect(routes.PlantDiseaseController.index())
     })
