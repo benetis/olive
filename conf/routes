@@ -6,7 +6,7 @@ GET         /                              controllers.ApplicationController.ind
 GET         /signOut                       controllers.ApplicationController.signOut
 GET         /authenticate/:provider        controllers.SocialAuthController.authenticate(provider)
 GET         /signUp                        controllers.SignUpController.view
-#POST        /signUp                        controllers.SignUpController.submit
+POST        /signUp                        controllers.SignUpController.submit
 
 GET         /signIn                        controllers.SignInController.view
 POST        /signIn                        controllers.SignInController.submit

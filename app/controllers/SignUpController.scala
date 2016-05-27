@@ -45,7 +45,7 @@ class SignUpController @Inject() (
    *
    * @return The result to display.
    */
-  def view = silhouette.UnsecuredAction.async { implicit request =>
+  def view = silhouette.SecuredAction(WithService()).async { implicit request =>
     Future.successful(Ok(views.html.signUp(SignUpForm.form)))
   }
 
