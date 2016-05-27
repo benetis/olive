@@ -32,7 +32,6 @@
     <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
     }.getOrElse {
         <li class="@("active".when(tab == "signIn"))"><a href="@routes.SignInController.view">@Messages("sign.in")</a></li>
-        <li class="@("active".when(tab == "signUp"))"><a href="@routes.SignUpController.view">@Messages("sign.up")</a></li>
     }
     </ul>
 }
