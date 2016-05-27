@@ -1,6 +1,5 @@
 @(signInForm: Form[forms.SignInForm.Data])(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
 
-@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 
 @templates.default(Messages("sign.in.title"), tab="signIn") {
@@ -27,10 +26,6 @@
                 </div>
             </div>
         }
-
-        <div>
-            <p class="not-a-member">@Messages("not.a.member") <a href="@routes.SignUpController.view">@Messages("sign.up.now")</a></p>
-        </div>
 
     </fieldset>
 }
