@@ -27,9 +27,13 @@
     }
     </ul>
     <ul class="nav navbar-nav navbar-right">
-    @loggedUser.map { u =>
-    <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
-    <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
+    @loggedUser.map { implicit u =>
+        @withServiceOrElse() {
+            <li><a href="@routes.UserController.index">@u.fullName</a></li>
+        } {
+            <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
+        }
+        <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
     }.getOrElse {
         <li class="@("active".when(tab == "signIn"))"><a href="@routes.SignInController.view">@Messages("sign.in")</a></li>
     }

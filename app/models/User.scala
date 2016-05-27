@@ -24,3 +24,4 @@ case class User(
   email: Option[String],
   avatarURL: Option[String],
   isAdmin: Option[Boolean]) extends Identity
+

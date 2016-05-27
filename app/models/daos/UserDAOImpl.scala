@@ -93,4 +93,18 @@ class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
     // run actions and return user afterwards
     db.run(actions).map(_ => user)
   }
+
+  def all() = {
+    db.run(slickUsers.result).map(users => users.map(user => {
+      User(
+        UUID.fromString(user.userID),
+        LoginInfo(" ", " "),
+        user.firstName,
+        user.lastName,
+        user.fullName,
+        user.email,
+        user.avatarURL,
+        user.isAdmin)
+    }))
+  }
 }

@@ -28,6 +28,7 @@ POST        /diseaseWarnings               controllers.DiseaseWarningController.
 GET         /createDiseaseWarning          controllers.DiseaseWarningController.createWarning
 GET         /diseaseWarnings/:id           controllers.DiseaseWarningController.deleteWarning(id)
 
+GET         /users                         controllers.UserController.index
 
 GET         /weatherNow                    controllers.WeatherNowController.index
 
