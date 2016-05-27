@@ -1,6 +1,6 @@
 error.email = Reikalingas galiojantis el. paštas
 error.required = Reikia užpildyti šį lauką
-invalid.credentials = Klaidingi įgaliojimai!
+invalid.credentials = Klaidingi prisijungimo duomenys
 access.denied = Priėjimas negalimas!
 user.exists = Jau yra vartotojas su šiuo el. paštu! 
 
@@ -11,8 +11,8 @@ sign.in.title = Olive - Prisijungti
 toggle.navigation = Perjungti navigaciją
 welcome.signed.in = Sveiki  prisijungę!
 
-sign.up.account = Užregistruoti naują vartotoją (paskyrą?)
-sign.in.credentials = Prisijunkite su savo įgaliojimais (duomenimis?)
+sign.up.account = Užregistruoti naują vartotoją
+sign.in.credentials = Prisijunkite su savo prisijungimais
 
 error = Klaida!
 home = Pagrindinis
