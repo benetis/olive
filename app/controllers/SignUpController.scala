@@ -15,7 +15,7 @@ import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.{Action, Controller}
 import utils.{Mailer, WithService}
-import utils.auth.DefaultEnv
+import utils.auth.{AuthenticationController, DefaultEnv}
 import views.html.auth
 
 import scala.concurrent.Future
@@ -39,7 +39,7 @@ class SignUpController @Inject() (
   avatarService: AvatarService,
   passwordHasher: PasswordHasher,
   implicit val webJarAssets: WebJarAssets)
-  extends Controller with I18nSupport {
+  extends AuthenticationController with I18nSupport {
 
   /**
    * Views the `Sign Up` page.
@@ -98,7 +98,7 @@ class SignUpController @Inject() (
         val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
         userService.retrieve(loginInfo).flatMap {
           case Some(user) =>
-            Future.successful(BadRequest(views.html.signUp(SignUpForm.form.withError("email", Messages("user.exists")))))
+            Future.successful(Redirect(routes.SignUpController.view()).flashing("error" -> Messages("user.exists")))
           case None =>
             val user = User(
               userID = UUID.randomUUID(),
@@ -113,8 +113,8 @@ class SignUpController @Inject() (
             val token = MailTokenUser(data.email, isSignUp = true)
             for {
               avatar <- avatarService.retrieveURL(data.email)
-              user <- userService.save(user.copy(avatarURL = avatar))
-              result <- Future.successful(Redirect(routes.ApplicationController.index()))
+             // user <- userService.save(user.copy(avatarURL = avatar))
+              result <- Future.successful(Redirect(routes.UserController.index()).flashing("info" -> Messages("user.invited")))
             } yield {
 //              silhouette.env.eventBus.publish(SignUpEvent(user, request))
 //              silhouette.env.eventBus.publish(LoginEvent(user, request))

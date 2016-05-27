@@ -82,3 +82,6 @@ at.least.one.condition = Kad ligų modelis veiktų turite pridėti bent vieną s
 
 users = Vartotojai
 users.title = Vartotojai
+user.invite = Pakviesti prisijungti vartotoją
+success = Sėkminga operacija
+user.invited = Pakvietimas vartotojui išsiųstas nurodytu paštu
