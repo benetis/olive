@@ -26,6 +26,7 @@ class WeatherStationDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
   def insert(station: DBWeatherStation): Future[Unit] = db.run(stations += station).map { _ => () }
 
     def createTable() = {
+
       stations.schema.create
     }
 
