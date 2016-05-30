@@ -25,7 +25,7 @@ class SampleDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   def getJsonSamples(): Future[Seq[Sample]] = {
    val result = sql"""select avg(s.id), avg(s.temperature), avg(s.humidity),
                              avg(s.wind_direction), avg(s.wind_speed), avg(s.rain_level), s.clocked
-      from sample s
+      from SAMPLE s
       group by hour(s.clocked);
      """.as[Sample]
     //where s.clocked >= now() - INTERVAL 1 DAY

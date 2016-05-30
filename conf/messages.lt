@@ -64,7 +64,7 @@ wind.speed = Vėjo greitis
 rain.level = Lietaus lygis
 
 weather.now.title = Oras dabar
-weather.now = Dabartinis oras
+weather.now = Orai šiuo metu. Aleksotas, Kaunas
 
 disease.warnings.title = Ligų įspėjimai
 create.disease.warning.title = Sukurti ligos įspėjimą

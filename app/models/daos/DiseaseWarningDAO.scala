@@ -62,7 +62,7 @@ class DiseaseWarningDAO @Inject()(protected val dbConfigProvider: DatabaseConfig
       val result = sql"""
         select s.id, avg(s.temperature), avg(s.humidity),
                                avg(s.wind_direction), avg(s.wind_speed), avg(s.rain_level), s.clocked
-        from sample s
+        from SAMPLE s
         where
         s.clocked >= DATE_SUB(NOW(),INTERVAL #$duration HOUR) AND
         s.#$param #$conditionParam #$conditionLimit
