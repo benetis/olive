@@ -64,11 +64,11 @@ define([ "../main", "../i18n!nls/translations"], function(main, translations) {
 
             var condition = lastCondition;
             var params = {
-                1 : "Temperature",
-                2 : "Humidity",
-                3 : "Wind direction",
-                4 : "Wind speed",
-                5 : "Rain level"
+                1 : "Tempratūra",
+                2 : "Santykinė drėgmė",
+                3 : "Vėjo kryptis",
+                4 : "Vėjo greitis",
+                5 : "Kritulių kiekis"
             };
             var condParams = {
                 1 : ">",
@@ -80,7 +80,7 @@ define([ "../main", "../i18n!nls/translations"], function(main, translations) {
             var cond = condition.condition;
             var duration = condition.duration;
             //TODO: refactor into something proper, at least this has good performance :D
-            var description = "<li>" + param + " " + condParam + " " + cond + " for at least " + duration + " seconds" + "</li>";
+            var description = "<li>" + param + " " + condParam + " " + cond + " bent " + duration + " valandas" + "</li>";
             conditionList.append(description);
         });
 
